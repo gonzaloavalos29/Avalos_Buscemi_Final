@@ -14,7 +14,7 @@ public class RepositorioReserva : IRepositorioReserva {
 
     public void Agregar(Reserva reserva) {
         reserva.Id = ObtenerNuevoId();
-        var linea = $"{reserva.Id},{reserva.EventoDeportivoId},{reserva.PersonaId},{reserva.FechaAltaReserva:yyyy-MM-dd HH:mm},{reserva}";
+        var linea = $"{reserva.Id},{reserva.EventoDeportivoId},{reserva.UsuarioId},{reserva.FechaAltaReserva:yyyy-MM-dd HH:mm},{reserva.EstadoAsistencia}";
         File.AppendAllLines(archivo, new[] { linea });
     }
 
@@ -33,8 +33,8 @@ public class RepositorioReserva : IRepositorioReserva {
         GuardarTodas(reservas);
     }
 
-    public bool ExisteReserva(int eventoId, int personaId) {
-        return Listar().Any(r => r.EventoDeportivoId == eventoId && r.PersonaId == personaId);
+    public bool ExisteReserva(int eventoId, Guid personaId) {
+        return Listar().Any(r => r.EventoDeportivoId == eventoId && r.UsuarioId == personaId);
     }
 
     public Reserva ObtenerPorId(int id) {
@@ -54,7 +54,7 @@ public class RepositorioReserva : IRepositorioReserva {
             {
                 Id = int.Parse(p[0]),
                 EventoDeportivoId = int.Parse(p[1]),
-                PersonaId = int.Parse(p[2]),
+                UsuarioId = Guid.Parse(p[2]),
                 FechaAltaReserva = DateTime.Parse(p[3])
                 
             }).ToList();
@@ -65,7 +65,7 @@ public class RepositorioReserva : IRepositorioReserva {
     }
 
     private void GuardarTodas(List<Reserva> reservas) {
-        var lineas = reservas.Select(r => $"{r.Id},{r.EventoDeportivoId},{r.PersonaId},{r.FechaAltaReserva:yyyy-MM-dd HH:mm}");
+        var lineas = reservas.Select(r => $"{r.Id},{r.EventoDeportivoId},{r.UsuarioId},{r.FechaAltaReserva:yyyy-MM-dd HH:mm}");
         File.WriteAllLines(archivo, lineas);
     }
 

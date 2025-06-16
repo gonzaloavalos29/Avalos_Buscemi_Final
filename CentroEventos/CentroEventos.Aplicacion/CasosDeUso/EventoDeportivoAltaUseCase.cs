@@ -10,14 +10,14 @@ public class EventoDeportivoAltaUseCase
     private readonly ValidadorEventoDeportivo _Validador;
     private readonly IServicioAutorizacion _servicioAutorizacion;
 
-    public EventoDeportivoAltaUseCase(IRepositorioEventoDeportivo repoEvento, IRepositorioPersona repoPersona, IServicioAutorizacion servicioAutorizacion)
+    public EventoDeportivoAltaUseCase(IRepositorioEventoDeportivo repoEvento, IServicioAutorizacion servicioAutorizacion,ValidadorEventoDeportivo validador)
     {
         _repoEvento = repoEvento;
-        _Validador = new ValidadorEventoDeportivo(_repoEvento, repoPersona);
+        _Validador = validador;
         _servicioAutorizacion = servicioAutorizacion;
     }
 
-    public void Ejecutar(EventoDeportivo evento, int idUsuario){
+    public void Ejecutar(EventoDeportivo evento, Guid idUsuario){
         if (!_servicioAutorizacion.PoseeElPermiso(idUsuario, Permiso.EventoAlta))
                 throw new UnauthorizedAccessException("El usuario no tiene permiso para crear eventos.");
         _Validador.Validar(evento);

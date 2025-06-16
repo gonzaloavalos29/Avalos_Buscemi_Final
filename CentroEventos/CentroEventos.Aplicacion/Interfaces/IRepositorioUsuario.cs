@@ -6,10 +6,13 @@ public interface IRepositorioUsuario
 {
     void Agregar(Usuario usuario);
     void Modificar(Usuario usuario);
-    void Eliminar(int Id);
+    void Eliminar(Guid Id);
     Usuario ObtenerPorEmail(string email);
 
     Usuario ObtenerPorId(Guid id);
 
     List<Usuario> ListarTodos();
+
+    bool TieneReservas(Guid personaId);
+    bool EsResponsable(Guid personaId);
 }

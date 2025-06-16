@@ -4,20 +4,20 @@ using CentroEventos.Aplicacion.Validadores;
 using CentroEventos.Aplicacion.Interfaces;
 using CentroEventos.Aplicacion.Servicios;
 
-public class CrearUsuarioUseCase
+public class UsuarioAltaUseCase
 {
     private readonly IRepositorioUsuario _repo;
     private readonly IServicioAutorizacion _autorizacion;
     private readonly ValidadorUsuario _validador;
 
-    public CrearUsuarioUseCase(IRepositorioUsuario repo, IServicioAutorizacion autorizacion)
+    public UsuarioAltaUseCase(IRepositorioUsuario repo, IServicioAutorizacion autorizacion, ValidadorUsuario validador)
     {
         _repo = repo;
         _autorizacion = autorizacion;
-        _validador = new ValidadorUsuario(repo);
+        _validador =validador
     }
 
-    public void Ejecutar(Usuario usuario, string contraseña, int idUsuarioLogueado)
+    public void Ejecutar(Usuario usuario, string contraseña, Guid idUsuarioLogueado)
     {
         if (_repo.ListarTodos().Count > 0 && !_autorizacion.PoseeElPermiso(idUsuarioLogueado, Permiso.UsuarioAlta))
             throw new FalloAutorizacionException();

@@ -10,13 +10,13 @@ public class ReservaAltaUseCase {
     private readonly ValidadorReserva _validador;
     private readonly IServicioAutorizacion _servicioAutorizacion;
 
-    public ReservaAltaUseCase(IRepositorioReserva repoReserva, IRepositorioEventoDeportivo repoEvento, IRepositorioPersona repoPersona, IServicioAutorizacion servicioAutorizacion) {
+    public ReservaAltaUseCase(IRepositorioReserva repoReserva, IRepositorioEventoDeportivo repoEvento, IServicioAutorizacion servicioAutorizacion, ValidadorReserva validador) {
         _repoReserva = repoReserva;
-        _validador = new ValidadorReserva(_repoReserva,repoEvento,repoPersona);
+        _validador=validador;
         _servicioAutorizacion = servicioAutorizacion;
     }
 
-    public void Ejecutar(Reserva datosReserva, int idUsuario) {
+    public void Ejecutar(Reserva datosReserva, Guid idUsuario) {
         if (!_servicioAutorizacion.PoseeElPermiso(idUsuario,Permiso.ReservaAlta))
             throw new FalloAutorizacionException();
         _validador.Validar(datosReserva);

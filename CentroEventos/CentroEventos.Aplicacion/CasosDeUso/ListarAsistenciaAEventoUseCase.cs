@@ -8,30 +8,29 @@ namespace CentroEventos.Aplicacion.CasosDeUso;
 public class ListarAsistenciaAEventoUseCase
 {
     private readonly IRepositorioEventoDeportivo _repoEventoDeportivo;
-    private readonly IRepositorioPersona _repoPersona;
+    private readonly IRepositorioUsuario _repoUsuario;
     private readonly IRepositorioReserva _repoReserva;
 
-    public ListarAsistenciaAEventoUseCase(IRepositorioEventoDeportivo repoEvento
-    , IRepositorioPersona repoPersona, IRepositorioReserva repoReserva){
+    public ListarAsistenciaAEventoUseCase(IRepositorioEventoDeportivo repoEvento, IRepositorioUsuario repoPersona, IRepositorioReserva repoReserva){
         _repoEventoDeportivo=repoEvento;
-        _repoPersona=repoPersona;
+        _repoUsuario=repoPersona;
         _repoReserva=repoReserva;
     }
 
-    public List<Persona> Ejecutar(int Id){
+    public List<Usuario> Ejecutar(int Id){
         var evento = _repoEventoDeportivo.ObtenerPorId(Id)??throw new EntidadNotFoundException("El evento no existe");
 
         if(evento.FechaHoraInicio>DateTime.Now) throw new OperacionInvalidaException("El evento no ha ocurrido");
 
         var ReservasAsistieron= _repoReserva.ListarPorEvento(Id).Where(r=> r.EstadoAsistencia==EstadoAsistencia.Presente).ToList();
-        var Personas =new  List<Persona>();
+        var Usuarios =new  List<Usuario>();
         foreach(var r in ReservasAsistieron){
-            var persona = _repoPersona.ObtenerPorId(r.Id);
-            if(persona!= null ){
-                Personas.Add(persona);
+            var usuario = _repoUsuario.ObtenerPorId(r.UsuarioId);
+            if(usuario!= null ){
+                Usuarios.Add(usuario);
             }
         }
-        return Personas;
+        return Usuarios;
     }
 
 }

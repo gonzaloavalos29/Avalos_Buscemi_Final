@@ -6,17 +6,18 @@ using CentroEventos.Aplicacion.Validadores;
 public class IniciarSesion
 {
     private readonly IRepositorioUsuario _repo;
-    public IniciarSesion(IRepositorioUsuario repo)
+    private readonly ValidadorUsuario _validador;
+    public IniciarSesion(IRepositorioUsuario repo, ValidadorUsuario validador)
     {
         _repo = repo;
+        _validador = validador;
     }
     public Usuario Ejecutar(string email, string contraseña)
     {
         var usuario = _repo.ObtenerPorEmail(email)
             ?? throw new EntidadNotFoundException("Usuario no encontrado");
 
-        var Validar = new ValidadorUsuario(_repo);
-        Validar.ValidarContraseña(contraseña);
+        _validador.ValidarContraseña(contraseña);
         return usuario;
     }
 }

@@ -11,19 +11,19 @@ public class EventoDeportivoModificarUseCase
     private readonly IRepositorioEventoDeportivo _repoEvento;
     private readonly ValidadorEventoDeportivo _Validar;
     private readonly IServicioAutorizacion _servicioAutorizacion;
-    public EventoDeportivoModificarUseCase(IRepositorioEventoDeportivo repositorioEventoDeportivo, IRepositorioPersona repoPersona,IServicioAutorizacion servicioAutorizacion)
+    public EventoDeportivoModificarUseCase(IRepositorioEventoDeportivo repositorioEventoDeportivo,IServicioAutorizacion servicioAutorizacion,ValidadorEventoDeportivo validar)
     {
         _servicioAutorizacion = servicioAutorizacion;
         _repoEvento = repositorioEventoDeportivo;
-        _Validar = new ValidadorEventoDeportivo(_repoEvento, repoPersona);
+        _Validar = validar;
     }
 
-    public void Ejecutar(EventoDeportivo evento,int idUsuario)
+    public void Ejecutar(EventoDeportivo evento,Guid idUsuario)
     {
         if (!_servicioAutorizacion.PoseeElPermiso(idUsuario, Permiso.EventoModificacion))
             throw new UnauthorizedAccessException("El usuario no tiene permiso para modificar eventos.");
         var mod = _repoEvento.ObtenerPorId(evento.Id) ?? throw new EntidadNotFoundException("El evento no existe");
-        if (evento.FechaHoraInicio < DateTime.Now) throw new OperacionInvalidaException("No se puede modificar un evento terminado");
+        if (mod.FechaHoraInicio < DateTime.Now) throw new OperacionInvalidaException("No se puede modificar un evento terminado");
         _Validar.Validar(evento);
         _repoEvento.Modificar(evento);
     }
