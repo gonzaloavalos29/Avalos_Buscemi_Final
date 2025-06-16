@@ -27,6 +27,10 @@ public class ValidadorUsuario
         var existente = _repo.ObtenerPorEmail(usuario.email);
         if (existente != null && (esNuevo || existente.id != usuario.id))
             throw new DuplicadoException("Ya existe un usuario con ese email.");
+
+        var DNI = _repo.ObtenerPorDNI(usuario.DNI);
+        if (DNI != null && (esNuevo ||DNI.id != usuario.id))
+            throw new DuplicadoException("Ya existe un Usuario con ese DNI");
     }
 
     public void ValidarContraseña(string contraseña)

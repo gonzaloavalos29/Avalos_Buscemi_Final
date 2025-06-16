@@ -11,6 +11,8 @@ public interface IRepositorioUsuario
 
     Usuario ObtenerPorId(Guid id);
 
+    Usuario ObtenerPorDNI(string DNI);
+
     List<Usuario> ListarTodos();
 
     bool TieneReservas(Guid personaId);

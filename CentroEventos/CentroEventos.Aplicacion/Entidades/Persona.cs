@@ -1,4 +1,4 @@
-﻿namespace CentroEventos.Aplicacion.Entidades;
+﻿/*namespace CentroEventos.Aplicacion.Entidades;
 public class Persona {
     public int Id {get;set;}
     public string DNI{get;set;}="";
@@ -9,3 +9,4 @@ public class Persona {
 
     public override string ToString()=>$"[{Id}], {Nombre} {Apellido}: DNI: {DNI}, Email: {Email}, Telefono: {Telefono}";
 }
+*/
