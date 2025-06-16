@@ -1,4 +1,4 @@
-using CentroEventos.Aplicacion.Interfaces;
+/*using CentroEventos.Aplicacion.Interfaces;
 using CentroEventos.Aplicacion.Entidades;
 using CentroEventos.Aplicacion.Excepciones;
 using CentroEventos.Aplicacion.Validadores;
@@ -19,7 +19,7 @@ public class PersonaModificarUseCase
         _servicioAutorizacion = servicioAutorizacion;
     }
 
-    public void Ejecutar(Persona persona,int idUsuario){
+    public void Ejecutar(Persona persona,Guid idUsuario){
         if (!_servicioAutorizacion.PoseeElPermiso(idUsuario, Permiso.UsuarioModificacion))
             throw new UnauthorizedAccessException("El usuario no tiene permiso para modificar personas.");
         var add = repositorioPersona.ObtenerPorId(persona.Id)?? throw new EntidadNotFoundException("Persona no encontrada");
@@ -27,3 +27,4 @@ public class PersonaModificarUseCase
         repositorioPersona.Modificar(persona);
     }
 }
+*/

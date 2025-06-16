@@ -1,4 +1,4 @@
-using CentroEventos.Aplicacion.Entidades;
+/*using CentroEventos.Aplicacion.Entidades;
 
 namespace CentroEventos.Aplicacion.Interfaces;
 
@@ -9,8 +9,8 @@ public interface IRepositorioPersona {
     bool TieneReservas(int Id);
     bool EsResponsable(int Id);
     Persona? ObtenerPorId(int Id);
-    Persona? ObtenerPorDni(string DNI);
-    Persona? ObtenerPorEmail(string Email);
+    Persona? ObtenerPorDni(int DNI);
+    Persona? ObtenerPorEmail(int Email);
     List<Persona> Listar();
 
-}
+} */

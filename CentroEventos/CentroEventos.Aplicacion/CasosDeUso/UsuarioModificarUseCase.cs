@@ -10,11 +10,11 @@ public class UsuarioModificarUseCase
     private readonly IServicioAutorizacion _autorizacion;
     private readonly ValidadorUsuario _validador;
 
-    public UsuarioModificarUseCase(IRepositorioUsuario repo, IServicioAutorizacion autorizacion)
+    public UsuarioModificarUseCase(IRepositorioUsuario repo, IServicioAutorizacion autorizacion, ValidadorUsuario validador)
     {
         _repo = repo;
         _autorizacion = autorizacion;
-        _validador = new ValidadorUsuario(repo);
+        _validador = validador;
     }
 
     public void Ejecutar(Usuario usuario, Guid idUsuarioLogueado)

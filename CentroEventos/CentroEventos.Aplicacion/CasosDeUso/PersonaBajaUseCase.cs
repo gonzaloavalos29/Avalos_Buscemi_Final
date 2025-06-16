@@ -1,4 +1,4 @@
-using CentroEventos.Aplicacion.Interfaces;
+/*using CentroEventos.Aplicacion.Interfaces;
 using CentroEventos.Aplicacion.Excepciones;
 using CentroEventos.Aplicacion.Servicios;
 namespace CentroEventos.Aplicacion.CasosDeUso;
@@ -14,7 +14,7 @@ public class PersonaBajaUseCase
         _servicioAutorizacion = servicioAutorizacion;
     }
 
-    public void Ejecutar(int Id, int idUsuario){
+    public void Ejecutar(int Id, Guid idUsuario){
         if (!_servicioAutorizacion.PoseeElPermiso(idUsuario, Permiso.UsuarioBaja))
             throw new UnauthorizedAccessException("El usuario no tiene permiso eliminar una persona");
         var PersonaEliminar =_repositorioPersona.ObtenerPorId(Id)?? throw new EntidadNotFoundException("Persona no encontrada");
@@ -23,3 +23,4 @@ public class PersonaBajaUseCase
         _repositorioPersona.Eliminar(Id);
     }
 }
+*/

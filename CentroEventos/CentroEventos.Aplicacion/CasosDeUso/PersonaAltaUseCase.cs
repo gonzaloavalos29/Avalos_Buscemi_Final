@@ -1,4 +1,4 @@
-using CentroEventos.Aplicacion.Interfaces;
+/*using CentroEventos.Aplicacion.Interfaces;
 using CentroEventos.Aplicacion.Entidades;
 using CentroEventos.Aplicacion.Validadores;
 using CentroEventos.Aplicacion.Servicios;
@@ -16,10 +16,11 @@ public class PersonaAltaUseCase
         _servicioAutorizacion = servicioAutorizacion;
     }
 
-    public void Ejecutar(Persona persona, int idUsuario){
+    public void Ejecutar(Persona persona, Guid idUsuario){
         if (!_servicioAutorizacion.PoseeElPermiso(idUsuario, Permiso.UsuarioAlta))
             throw new UnauthorizedAccessException("El usuario no tiene permiso para agregar una persona.");
         _validador.Validar(persona);
         _repo.Agregar(persona);
     }
 }
+*/

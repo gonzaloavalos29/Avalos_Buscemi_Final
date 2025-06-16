@@ -16,7 +16,7 @@ public class EventoDeportivoBajaUseCase
         _servicioAutorizacion = servicioAutorizacion;
     }
 
-    public void Ejecutar(int Id,int idUsuario){
+    public void Ejecutar(int Id,Guid idUsuario){
         if (!_servicioAutorizacion.PoseeElPermiso(idUsuario, Permiso.EventoBaja))
             throw new UnauthorizedAccessException("El usuario no tiene permiso para eliminar eventos.");
         var del= _repositorioEvento.ObtenerPorId(Id)??throw new EntidadNotFoundException("Evento no encontrado");

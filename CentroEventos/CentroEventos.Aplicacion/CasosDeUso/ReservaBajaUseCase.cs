@@ -16,7 +16,7 @@ public class ReservaBajaUseCase
 
     }
 
-    public void Ejecutar(int Id,int idUsuario)
+    public void Ejecutar(int Id,Guid idUsuario)
     {
         if (!_servicioAutorizacion.PoseeElPermiso(idUsuario, Permiso.ReservaBaja))
             throw new UnauthorizedAccessException("El usuario no tiene permiso para eliminar reservas.");

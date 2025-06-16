@@ -14,7 +14,7 @@ public class UsuarioAltaUseCase
     {
         _repo = repo;
         _autorizacion = autorizacion;
-        _validador =validador
+        _validador = validador;
     }
 
     public void Ejecutar(Usuario usuario, string contraseña, Guid idUsuarioLogueado)

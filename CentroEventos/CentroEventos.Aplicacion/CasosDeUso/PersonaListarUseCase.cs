@@ -1,4 +1,4 @@
-using CentroEventos.Aplicacion.Interfaces;
+/*using CentroEventos.Aplicacion.Interfaces;
 using CentroEventos.Aplicacion.Entidades;
 
 namespace CentroEventos.Aplicacion.CasosDeUso;
@@ -15,3 +15,4 @@ public class PersonaListarUseCase
         return repositorioPersona.Listar();
     }
 }
+*/

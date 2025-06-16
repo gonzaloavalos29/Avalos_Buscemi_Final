@@ -3,7 +3,7 @@ namespace CentroEventos.Aplicacion.Entidades;
 
 public class Usuario
 {
-    public Guid id { get; set; } = Guid.NewGuid(); // identificador único de 128 bits
+    public Guid id { get; set; } = Guid.NewGuid(); 
     public string nombre { get; set; } = null!;
     public string apellido { get; set; } = null!;
     public string email { get; set; } = null!;
