@@ -8,5 +8,5 @@ public class Usuario
     public string apellido { get; set; } = null!;
     public string email { get; set; } = null!;
     public string hashpassword { get; set; } = null!;
-    public List<PermisoUsuario> permisos { get; set; } = new();
+    public List<Permiso> permisos { get; set; } = new();
 }

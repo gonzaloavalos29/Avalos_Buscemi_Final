@@ -12,7 +12,7 @@ public class CrearEventoUseCase {
         _repositorioEvento = repositorioEvento;
     }
 
-    public void Ejecutar(int idUsuario, EventoDeportivo evento) {
+    public void Ejecutar(Guid idUsuario, EventoDeportivo evento) {
         if (!_servicioAutorizacion.PoseeElPermiso(idUsuario, Permiso.EventoAlta))
             throw new UnauthorizedAccessException("El usuario no tiene permiso para crear eventos.");
         _repositorioEvento.Guardar(evento);
