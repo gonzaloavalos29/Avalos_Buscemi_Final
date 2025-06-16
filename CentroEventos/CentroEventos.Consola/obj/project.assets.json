@@ -52,11 +52,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\chach\\Desktop\\UNLP\\2do\\.net\\primerTrabajo.net\\CentroEventos\\CentroEventos.Consola\\CentroEventos.Consola.csproj",
+      "projectUniqueName": "C:\\Users\\chach\\Desktop\\UNLP\\2do\\.net\\Avalos_Buscemi_Final\\CentroEventos\\CentroEventos.Consola\\CentroEventos.Consola.csproj",
       "projectName": "CentroEventos.Consola",
-      "projectPath": "C:\\Users\\chach\\Desktop\\UNLP\\2do\\.net\\primerTrabajo.net\\CentroEventos\\CentroEventos.Consola\\CentroEventos.Consola.csproj",
+      "projectPath": "C:\\Users\\chach\\Desktop\\UNLP\\2do\\.net\\Avalos_Buscemi_Final\\CentroEventos\\CentroEventos.Consola\\CentroEventos.Consola.csproj",
       "packagesPath": "C:\\Users\\chach\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\chach\\Desktop\\UNLP\\2do\\.net\\primerTrabajo.net\\CentroEventos\\CentroEventos.Consola\\obj\\",
+      "outputPath": "C:\\Users\\chach\\Desktop\\UNLP\\2do\\.net\\Avalos_Buscemi_Final\\CentroEventos\\CentroEventos.Consola\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -78,11 +78,11 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\chach\\Desktop\\UNLP\\2do\\.net\\primerTrabajo.net\\CentroEventos\\CentroEventos.Aplicacion\\CentroEventos.Aplicacion.csproj": {
-              "projectPath": "C:\\Users\\chach\\Desktop\\UNLP\\2do\\.net\\primerTrabajo.net\\CentroEventos\\CentroEventos.Aplicacion\\CentroEventos.Aplicacion.csproj"
+            "C:\\Users\\chach\\Desktop\\UNLP\\2do\\.net\\Avalos_Buscemi_Final\\CentroEventos\\CentroEventos.Aplicacion\\CentroEventos.Aplicacion.csproj": {
+              "projectPath": "C:\\Users\\chach\\Desktop\\UNLP\\2do\\.net\\Avalos_Buscemi_Final\\CentroEventos\\CentroEventos.Aplicacion\\CentroEventos.Aplicacion.csproj"
             },
-            "C:\\Users\\chach\\Desktop\\UNLP\\2do\\.net\\primerTrabajo.net\\CentroEventos\\CentroEventos.Repositorios\\CentroEventos.Repositorios.csproj": {
-              "projectPath": "C:\\Users\\chach\\Desktop\\UNLP\\2do\\.net\\primerTrabajo.net\\CentroEventos\\CentroEventos.Repositorios\\CentroEventos.Repositorios.csproj"
+            "C:\\Users\\chach\\Desktop\\UNLP\\2do\\.net\\Avalos_Buscemi_Final\\CentroEventos\\CentroEventos.Repositorios\\CentroEventos.Repositorios.csproj": {
+              "projectPath": "C:\\Users\\chach\\Desktop\\UNLP\\2do\\.net\\Avalos_Buscemi_Final\\CentroEventos\\CentroEventos.Repositorios\\CentroEventos.Repositorios.csproj"
             }
           }
         }
