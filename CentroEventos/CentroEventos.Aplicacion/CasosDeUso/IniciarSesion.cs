@@ -17,7 +17,7 @@ public class IniciarSesion
         var usuario = _repo.ObtenerPorEmail(email)
             ?? throw new EntidadNotFoundException("Usuario no encontrado");
 
-        _validador.ValidarContraseña(contraseña);
+        _validador.ValidacionHash(usuario,contraseña);
         return usuario;
     }
 }

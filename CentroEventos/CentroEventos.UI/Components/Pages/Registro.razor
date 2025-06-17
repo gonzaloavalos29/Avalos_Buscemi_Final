@@ -1,0 +1,68 @@
+@page "/registro"
+@inject UsuarioAltaUseCase CrearUsuario
+@inject ValidadorUsuario Validador
+@inject NavigationManager Nav
+@inject ServicioSesionUsuario Sesion
+
+<h3>Registro de Usuario</h3>
+
+@if (!string.IsNullOrEmpty(mensaje))
+{
+    <div class="alert @claseMensaje">@mensaje</div>
+}
+
+<div>
+    <label>Nombre:</label>
+    <input @bind="nuevo.nombre" />
+
+    <label>Apellido:</label>
+    <input @bind="nuevo.apellido" />
+
+    <label>Email:</label>
+    <input @bind="nuevo.email" />
+
+    <label>Contraseña:</label>
+    <input type="password" @bind="password" />
+
+    <button class="btn btn-success" @onclick="RegistrarUsuario">Registrar</button>
+    <button @onclick="ProbarClick">Probar click</button>
+    
+</div>
+
+@code {
+    private Usuario nuevo = new();
+    private string password = "";
+    private string mensaje = "";
+    private string claseMensaje = "";
+
+    private void ProbarClick()
+    {
+        Console.WriteLine("¡Click funcionando!");
+    }
+
+    private void RegistrarUsuario()
+    {
+        mensaje = "";
+        claseMensaje = "";
+        Console.WriteLine("Intentando registrar...");
+        try
+        {
+            Validador.Validar(nuevo, esNuevo: true);
+
+            nuevo.permisos = new List<Permiso>(); 
+
+            CrearUsuario.Ejecutar(nuevo, password, Guid.NewGuid());
+
+            mensaje = "Usuario registrado correctamente.";
+            claseMensaje = "alert-success";
+
+            Sesion.IniciarSesion(nuevo);
+            Nav.NavigateTo("/");
+        }
+        catch (Exception ex)
+        {
+            mensaje = ex.Message;
+            claseMensaje = "alert-danger";
+        }
+    }
+}

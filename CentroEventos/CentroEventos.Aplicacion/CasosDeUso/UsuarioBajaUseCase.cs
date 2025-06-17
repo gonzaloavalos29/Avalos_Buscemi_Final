@@ -3,12 +3,13 @@ using CentroEventos.Aplicacion.Excepciones;
 using CentroEventos.Aplicacion.Validadores;
 using CentroEventos.Aplicacion.Interfaces;
 using CentroEventos.Aplicacion.Servicios;
-public class EliminarUsuarioUseCase
+namespace CentroEventos.Aplicacion.CasosDeUso;
+public class UsuarioBajaUseCase
 {
     private readonly IRepositorioUsuario _repo;
     private readonly IServicioAutorizacion _autorizacion;
 
-    public EliminarUsuarioUseCase(IRepositorioUsuario repo, IServicioAutorizacion autorizacion)
+    public UsuarioBajaUseCase(IRepositorioUsuario repo, IServicioAutorizacion autorizacion)
     {
         _repo = repo;
         _autorizacion = autorizacion;

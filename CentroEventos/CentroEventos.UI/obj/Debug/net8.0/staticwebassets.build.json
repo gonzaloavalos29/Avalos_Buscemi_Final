@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "OGqgGVJpPS0J+R1vIEPfDp4gKNO/XP/mqIZYi8jgOMA=",
+  "Hash": "g/fzV+CgzJjUPsWEnCVxwCzvL2Tpbzo5qYjVQqXo348=",
   "Source": "CentroEventos.UI",
   "BasePath": "_content/CentroEventos.UI",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "CentroEventos.UI\\wwwroot",
       "Source": "CentroEventos.UI",
-      "ContentRoot": "C:\\Users\\chach\\Desktop\\UNLP\\2do\\.net\\AVALOS_BUSCEMI_FINAL\\CentroEventos\\CentroEventos.UI\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Usuario\\Documents\\GitHub\\Avalos_Buscemi_Final\\CentroEventos\\CentroEventos.UI\\wwwroot\\",
       "BasePath": "_content/CentroEventos.UI",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\chach\\Desktop\\UNLP\\2do\\.net\\AVALOS_BUSCEMI_FINAL\\CentroEventos\\CentroEventos.UI\\obj\\Debug\\net8.0\\scopedcss\\bundle\\CentroEventos.UI.styles.css",
+      "Identity": "C:\\Users\\Usuario\\Documents\\GitHub\\Avalos_Buscemi_Final\\CentroEventos\\CentroEventos.UI\\obj\\Debug\\net8.0\\scopedcss\\bundle\\CentroEventos.UI.styles.css",
       "SourceId": "CentroEventos.UI",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\chach\\Desktop\\UNLP\\2do\\.net\\AVALOS_BUSCEMI_FINAL\\CentroEventos\\CentroEventos.UI\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
+      "ContentRoot": "C:\\Users\\Usuario\\Documents\\GitHub\\Avalos_Buscemi_Final\\CentroEventos\\CentroEventos.UI\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
       "BasePath": "_content/CentroEventos.UI",
       "RelativePath": "CentroEventos.UI.styles.css",
       "AssetKind": "All",
@@ -33,13 +33,13 @@
       "AssetTraitValue": "ApplicationBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\chach\\Desktop\\UNLP\\2do\\.net\\AVALOS_BUSCEMI_FINAL\\CentroEventos\\CentroEventos.UI\\obj\\Debug\\net8.0\\scopedcss\\bundle\\CentroEventos.UI.styles.css"
+      "OriginalItemSpec": "C:\\Users\\Usuario\\Documents\\GitHub\\Avalos_Buscemi_Final\\CentroEventos\\CentroEventos.UI\\obj\\Debug\\net8.0\\scopedcss\\bundle\\CentroEventos.UI.styles.css"
     },
     {
-      "Identity": "C:\\Users\\chach\\Desktop\\UNLP\\2do\\.net\\AVALOS_BUSCEMI_FINAL\\CentroEventos\\CentroEventos.UI\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\CentroEventos.UI.bundle.scp.css",
+      "Identity": "C:\\Users\\Usuario\\Documents\\GitHub\\Avalos_Buscemi_Final\\CentroEventos\\CentroEventos.UI\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\CentroEventos.UI.bundle.scp.css",
       "SourceId": "CentroEventos.UI",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\chach\\Desktop\\UNLP\\2do\\.net\\AVALOS_BUSCEMI_FINAL\\CentroEventos\\CentroEventos.UI\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\",
+      "ContentRoot": "C:\\Users\\Usuario\\Documents\\GitHub\\Avalos_Buscemi_Final\\CentroEventos\\CentroEventos.UI\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\",
       "BasePath": "_content/CentroEventos.UI",
       "RelativePath": "CentroEventos.UI.bundle.scp.css",
       "AssetKind": "All",
@@ -52,13 +52,13 @@
       "AssetTraitValue": "ProjectBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\chach\\Desktop\\UNLP\\2do\\.net\\AVALOS_BUSCEMI_FINAL\\CentroEventos\\CentroEventos.UI\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\CentroEventos.UI.bundle.scp.css"
+      "OriginalItemSpec": "C:\\Users\\Usuario\\Documents\\GitHub\\Avalos_Buscemi_Final\\CentroEventos\\CentroEventos.UI\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\CentroEventos.UI.bundle.scp.css"
     },
     {
-      "Identity": "C:\\Users\\chach\\Desktop\\UNLP\\2do\\.net\\AVALOS_BUSCEMI_FINAL\\CentroEventos\\CentroEventos.UI\\wwwroot\\app.css",
+      "Identity": "C:\\Users\\Usuario\\Documents\\GitHub\\Avalos_Buscemi_Final\\CentroEventos\\CentroEventos.UI\\wwwroot\\app.css",
       "SourceId": "CentroEventos.UI",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\chach\\Desktop\\UNLP\\2do\\.net\\AVALOS_BUSCEMI_FINAL\\CentroEventos\\CentroEventos.UI\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Usuario\\Documents\\GitHub\\Avalos_Buscemi_Final\\CentroEventos\\CentroEventos.UI\\wwwroot\\",
       "BasePath": "_content/CentroEventos.UI",
       "RelativePath": "app.css",
       "AssetKind": "All",
@@ -74,10 +74,10 @@
       "OriginalItemSpec": "wwwroot\\app.css"
     },
     {
-      "Identity": "C:\\Users\\chach\\Desktop\\UNLP\\2do\\.net\\AVALOS_BUSCEMI_FINAL\\CentroEventos\\CentroEventos.UI\\wwwroot\\bootstrap\\bootstrap.min.css",
+      "Identity": "C:\\Users\\Usuario\\Documents\\GitHub\\Avalos_Buscemi_Final\\CentroEventos\\CentroEventos.UI\\wwwroot\\bootstrap\\bootstrap.min.css",
       "SourceId": "CentroEventos.UI",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\chach\\Desktop\\UNLP\\2do\\.net\\AVALOS_BUSCEMI_FINAL\\CentroEventos\\CentroEventos.UI\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Usuario\\Documents\\GitHub\\Avalos_Buscemi_Final\\CentroEventos\\CentroEventos.UI\\wwwroot\\",
       "BasePath": "_content/CentroEventos.UI",
       "RelativePath": "bootstrap/bootstrap.min.css",
       "AssetKind": "All",
@@ -93,10 +93,10 @@
       "OriginalItemSpec": "wwwroot\\bootstrap\\bootstrap.min.css"
     },
     {
-      "Identity": "C:\\Users\\chach\\Desktop\\UNLP\\2do\\.net\\AVALOS_BUSCEMI_FINAL\\CentroEventos\\CentroEventos.UI\\wwwroot\\bootstrap\\bootstrap.min.css.map",
+      "Identity": "C:\\Users\\Usuario\\Documents\\GitHub\\Avalos_Buscemi_Final\\CentroEventos\\CentroEventos.UI\\wwwroot\\bootstrap\\bootstrap.min.css.map",
       "SourceId": "CentroEventos.UI",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\chach\\Desktop\\UNLP\\2do\\.net\\AVALOS_BUSCEMI_FINAL\\CentroEventos\\CentroEventos.UI\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Usuario\\Documents\\GitHub\\Avalos_Buscemi_Final\\CentroEventos\\CentroEventos.UI\\wwwroot\\",
       "BasePath": "_content/CentroEventos.UI",
       "RelativePath": "bootstrap/bootstrap.min.css.map",
       "AssetKind": "All",
@@ -112,10 +112,10 @@
       "OriginalItemSpec": "wwwroot\\bootstrap\\bootstrap.min.css.map"
     },
     {
-      "Identity": "C:\\Users\\chach\\Desktop\\UNLP\\2do\\.net\\AVALOS_BUSCEMI_FINAL\\CentroEventos\\CentroEventos.UI\\wwwroot\\favicon.png",
+      "Identity": "C:\\Users\\Usuario\\Documents\\GitHub\\Avalos_Buscemi_Final\\CentroEventos\\CentroEventos.UI\\wwwroot\\favicon.png",
       "SourceId": "CentroEventos.UI",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\chach\\Desktop\\UNLP\\2do\\.net\\AVALOS_BUSCEMI_FINAL\\CentroEventos\\CentroEventos.UI\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Usuario\\Documents\\GitHub\\Avalos_Buscemi_Final\\CentroEventos\\CentroEventos.UI\\wwwroot\\",
       "BasePath": "_content/CentroEventos.UI",
       "RelativePath": "favicon.png",
       "AssetKind": "All",

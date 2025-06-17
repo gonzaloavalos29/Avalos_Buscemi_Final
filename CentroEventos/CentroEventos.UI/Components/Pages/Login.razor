@@ -1,0 +1,28 @@
+@page "/login"
+@inject IniciarSesion LoginUseCase
+@inject ServicioSesionUsuario Sesion
+@inject NavigationManager Nav
+
+<input @bind="email" placeholder="Email" />
+<input type="password" @bind="password" placeholder="Contraseña" />
+<button @onclick="IniciarSesion">Ingresar</button>
+
+@code {
+    private string email = "";
+    private string password = "";
+    private string mensaje = "";
+
+    private void IniciarSesion()
+    {
+        try
+        {
+            var usuario = LoginUseCase.Ejecutar(email, password);
+            Sesion.IniciarSesion(usuario);
+            Nav.NavigateTo("/");
+        }
+        catch (Exception ex)
+        {
+            mensaje = ex.Message;
+        }
+    }
+}

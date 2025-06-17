@@ -1,0 +1,74 @@
+@page "/editar-usuario"
+@inject IRepositorioUsuario Repo
+@inject UsuarioModificarUseCase ModificarUsuario
+@inject ValidadorUsuario Validador
+@inject IServicioAutorizacion Autorizacion
+@inject ServicioSesionUsuario Sesion
+
+<h3>Editar Usuario</h3>
+
+<label>ID de usuario:</label>
+<input @bind="idABuscar" type="number" />
+<button @onclick="BuscarUsuario">Buscar</button>
+
+@if (mensaje != null)
+{
+    <p style="color:red">@mensaje</p>
+}
+
+@if (usuario != null)
+{
+    <div>
+        <label>Nombre:</label>
+        <input @bind="usuario.nombre" />
+        <br />
+
+        <label>Apellido:</label>
+        <input @bind="usuario.apellido" />
+        <br />
+
+        <label>Email:</label>
+        <input @bind="usuario.email" />
+        <br />
+        <button @onclick="Modificar">Guardar Cambios</button>
+    </div>
+}
+
+@if (exito)
+{
+    <p style="color:green">Usuario modificado correctamente.</p>
+}
+
+@code {
+    private Guid idABuscar;
+    private Usuario? usuario;
+    private string? mensaje;
+    private bool exito = false;
+
+    private void BuscarUsuario()
+    {
+        mensaje = null;
+        exito = false;
+        usuario = Repo.ObtenerPorId(idABuscar);
+
+        if (usuario == null)
+            mensaje = "Usuario no encontrado.";
+    }
+
+    private void Modificar()
+    {
+        mensaje = null;
+        exito = false;
+
+        try
+        {
+            Validador.Validar(usuario!, esNuevo: false);
+            ModificarUsuario.Ejecutar(usuario!, Sesion.UsuarioActual!.id);
+            exito = true;
+        }
+        catch (Exception ex)
+        {
+            mensaje = ex.Message;
+        }
+    }
+}
