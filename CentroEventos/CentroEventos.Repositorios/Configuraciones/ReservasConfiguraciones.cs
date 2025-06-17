@@ -12,7 +12,7 @@ public class ReservaConfiguracion : IEntityTypeConfiguration<Reserva>
 
         builder.Property(r => r.EstadoAsistencia).IsRequired();
 
-        builder.HasOne<Usuario>().WithMany().HasForeignKey(r => r.UsuarioId).OnDelete(DeleteBehavior.Restrict);
+        builder.HasOne<Persona>().WithMany().HasForeignKey(r => r.PersonaId).OnDelete(DeleteBehavior.Restrict);
 
         builder.HasOne<EventoDeportivo>().WithMany().HasForeignKey(r => r.EventoDeportivoId).OnDelete(DeleteBehavior.Restrict);
 

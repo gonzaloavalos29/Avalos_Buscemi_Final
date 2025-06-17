@@ -33,7 +33,7 @@ public class RepositorioReservaEF : IRepositorioReserva
             _context.SaveChanges();
         }
     }
-    public bool ExisteReserva( int eventoId,Guid usuarioId)=> _context.Reservas.Any(r => r.UsuarioId == usuarioId && r.EventoDeportivoId == eventoId);
+    public bool ExisteReserva( int eventoId,int usuarioId)=> _context.Reservas.Any(r => r.PersonaId == usuarioId && r.EventoDeportivoId == eventoId);
     public Reserva? ObtenerPorId(int id) => _context.Reservas.AsNoTracking().FirstOrDefault(r => r.Id == id);
 
     public List<Reserva> Listar() => _context.Reservas.AsNoTracking().ToList();

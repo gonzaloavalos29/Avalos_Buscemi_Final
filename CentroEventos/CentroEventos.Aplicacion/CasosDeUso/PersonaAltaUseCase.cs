@@ -1,4 +1,4 @@
-/*using CentroEventos.Aplicacion.Interfaces;
+using CentroEventos.Aplicacion.Interfaces;
 using CentroEventos.Aplicacion.Entidades;
 using CentroEventos.Aplicacion.Validadores;
 using CentroEventos.Aplicacion.Servicios;
@@ -9,10 +9,10 @@ public class PersonaAltaUseCase
     private readonly IRepositorioPersona _repo;
     private readonly IServicioAutorizacion _servicioAutorizacion;
     private readonly ValidadorPersona _validador;
-    public PersonaAltaUseCase(IRepositorioPersona repo, IServicioAutorizacion servicioAutorizacion)
+    public PersonaAltaUseCase(IRepositorioPersona repo, IServicioAutorizacion servicioAutorizacion,ValidadorPersona validador)
     {
         _repo = repo;
-        _validador = new ValidadorPersona(repo);
+        _validador = validador;
         _servicioAutorizacion = servicioAutorizacion;
     }
 
@@ -23,4 +23,3 @@ public class PersonaAltaUseCase
         _repo.Agregar(persona);
     }
 }
-*/

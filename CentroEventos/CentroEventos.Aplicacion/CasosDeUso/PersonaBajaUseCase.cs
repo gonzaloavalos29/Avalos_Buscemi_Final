@@ -1,4 +1,4 @@
-/*using CentroEventos.Aplicacion.Interfaces;
+using CentroEventos.Aplicacion.Interfaces;
 using CentroEventos.Aplicacion.Excepciones;
 using CentroEventos.Aplicacion.Servicios;
 namespace CentroEventos.Aplicacion.CasosDeUso;
@@ -23,4 +23,3 @@ public class PersonaBajaUseCase
         _repositorioPersona.Eliminar(Id);
     }
 }
-*/

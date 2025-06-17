@@ -8,11 +8,11 @@ namespace CentroEventos.Aplicacion.CasosDeUso;
 public class ReservaModificarUseCase
 {
     private readonly IRepositorioReserva _repoReserva;
-    private readonly IRepositorioUsuario _repoPersona;
+    private readonly IRepositorioPersona _repoPersona;
     private readonly IRepositorioEventoDeportivo _repoEvento;
     private readonly IServicioAutorizacion _servicioAutorizacion;
 
-    public ReservaModificarUseCase( IRepositorioReserva repoReserva, IRepositorioUsuario repoPersona, IRepositorioEventoDeportivo repoEvento, IServicioAutorizacion servicioAutorizacion)
+    public ReservaModificarUseCase( IRepositorioReserva repoReserva, IRepositorioPersona repoPersona, IRepositorioEventoDeportivo repoEvento, IServicioAutorizacion servicioAutorizacion)
     {
         _repoReserva = repoReserva;
         _repoPersona = repoPersona;
@@ -28,7 +28,7 @@ public class ReservaModificarUseCase
         var actual = _repoReserva.ObtenerPorId(reserva.Id)
             ?? throw new EntidadNotFoundException("Reserva no encontrada.");
 
-        if (_repoPersona.ObtenerPorId(reserva.UsuarioId) is null)
+        if (_repoPersona.ObtenerPorId(reserva.PersonaId) is null)
             throw new EntidadNotFoundException("Persona asociada a la reserva no existe.");
 
 

@@ -35,15 +35,6 @@ public class RepositorioUsuarioEF : IRepositorioUsuario
     public Usuario? ObtenerPorId(Guid id) => _context.Usuarios.Find(id);
     public Usuario? ObtenerPorEmail(string email) => _context.Usuarios.FirstOrDefault(u => u.email == email);
 
-    public Usuario? ObtenerPorDNI(string DNI) => _context.Usuarios.FirstOrDefault(u => u.DNI == DNI);
     public List<Usuario> ListarTodos() => _context.Usuarios.ToList();
-    public bool TieneReservas(Guid usuarioId)
-    {
-        return _context.Reservas.Any(r => r.UsuarioId == usuarioId);
-    }
-    public bool EsResponsable(Guid usuarioId)
-    {
-        return _context.Eventos.Any(e => e.ResponsableId == usuarioId);
-    }
 
 }

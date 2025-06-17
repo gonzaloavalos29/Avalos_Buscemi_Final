@@ -1,4 +1,4 @@
-/*using CentroEventos.Aplicacion.Interfaces;
+using CentroEventos.Aplicacion.Interfaces;
 using CentroEventos.Aplicacion.Entidades;
 using CentroEventos.Aplicacion.Excepciones;
 
@@ -28,4 +28,3 @@ public class ValidadorPersona {
             throw new DuplicadoException("Ya existe una persona con ese DNI");
     }
 }
-*/
