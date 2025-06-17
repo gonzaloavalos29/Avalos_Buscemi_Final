@@ -1,7 +1,5 @@
 using CentroEventos.Repositorios.Contexto;
-using CentroEventos.Repositorios;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
 using CentroEventos.UI.Components;
 var builder = WebApplication.CreateBuilder(args);
 
