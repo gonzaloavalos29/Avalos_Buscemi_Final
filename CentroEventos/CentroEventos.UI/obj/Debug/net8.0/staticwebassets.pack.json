@@ -1,23 +1,23 @@
 {
   "Files": [
     {
-      "Id": "C:\\Users\\Usuario\\Documents\\GitHub\\Avalos_Buscemi_Final\\CentroEventos\\CentroEventos.UI\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\CentroEventos.UI.bundle.scp.css",
+      "Id": "C:\\Users\\chach\\Desktop\\UNLP\\2do\\.net\\Avalos_Buscemi_Final\\CentroEventos\\CentroEventos.UI\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\CentroEventos.UI.bundle.scp.css",
       "PackagePath": "staticwebassets\\CentroEventos.UI.bundle.scp.css"
     },
     {
-      "Id": "C:\\Users\\Usuario\\Documents\\GitHub\\Avalos_Buscemi_Final\\CentroEventos\\CentroEventos.UI\\wwwroot\\app.css",
+      "Id": "C:\\Users\\chach\\Desktop\\UNLP\\2do\\.net\\Avalos_Buscemi_Final\\CentroEventos\\CentroEventos.UI\\wwwroot\\app.css",
       "PackagePath": "staticwebassets\\app.css"
     },
     {
-      "Id": "C:\\Users\\Usuario\\Documents\\GitHub\\Avalos_Buscemi_Final\\CentroEventos\\CentroEventos.UI\\wwwroot\\bootstrap\\bootstrap.min.css",
+      "Id": "C:\\Users\\chach\\Desktop\\UNLP\\2do\\.net\\Avalos_Buscemi_Final\\CentroEventos\\CentroEventos.UI\\wwwroot\\bootstrap\\bootstrap.min.css",
       "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css"
     },
     {
-      "Id": "C:\\Users\\Usuario\\Documents\\GitHub\\Avalos_Buscemi_Final\\CentroEventos\\CentroEventos.UI\\wwwroot\\bootstrap\\bootstrap.min.css.map",
+      "Id": "C:\\Users\\chach\\Desktop\\UNLP\\2do\\.net\\Avalos_Buscemi_Final\\CentroEventos\\CentroEventos.UI\\wwwroot\\bootstrap\\bootstrap.min.css.map",
       "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css.map"
     },
     {
-      "Id": "C:\\Users\\Usuario\\Documents\\GitHub\\Avalos_Buscemi_Final\\CentroEventos\\CentroEventos.UI\\wwwroot\\favicon.png",
+      "Id": "C:\\Users\\chach\\Desktop\\UNLP\\2do\\.net\\Avalos_Buscemi_Final\\CentroEventos\\CentroEventos.UI\\wwwroot\\favicon.png",
       "PackagePath": "staticwebassets\\favicon.png"
     },
     {

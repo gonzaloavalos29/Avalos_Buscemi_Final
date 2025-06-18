@@ -49,7 +49,6 @@ builder.Services.AddScoped<ReservaAltaUseCase>();
 builder.Services.AddScoped<ReservaBajaUseCase>();
 builder.Services.AddScoped<ReservaListarUseCase>();
 builder.Services.AddScoped<ReservaModificarUseCase>();
-builder.Services.AddScoped<UsuarioAltaUseCase>();
 builder.Services.AddScoped<UsuarioBajaUseCase>();
 builder.Services.AddScoped<UsuarioModificarUseCase>();
 builder.Services.AddScoped<ServicioSesionUsuario>();
