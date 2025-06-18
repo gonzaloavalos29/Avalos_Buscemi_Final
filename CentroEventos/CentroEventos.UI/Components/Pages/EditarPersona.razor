@@ -1,4 +1,4 @@
-@page "/editar-usuario/{id:int?}"
+@page "/editar-persona/{id:int?}"
 @rendermode InteractiveServer
 
 @inject IRepositorioPersona Repo
@@ -19,7 +19,7 @@
 @if (_esNuevaPersona) {
     <h3>Agregando un Nuevo Cliente</h3>
 } else {
-    <h3>Modificando AL Cliente "@persona.Nombre"</h3>
+    <h3>Modificando a la Persona "@persona.Nombre"</h3>
 }
 
 
