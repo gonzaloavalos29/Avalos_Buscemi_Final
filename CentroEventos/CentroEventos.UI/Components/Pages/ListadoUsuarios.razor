@@ -7,7 +7,6 @@
 @inject ServicioSesionUsuario Sesion
 @inject IServicioAutorizacion Autorizacion
 
-<AuthorizeView>
 @if (!Sesion.EstaLogeado)
 {
     <p>No estás logueado.</p>
@@ -15,7 +14,13 @@
 }
 else
 {
-    <p>Bienvenido, @Sesion.UsuarioActual.nombre</p>
+
+    <p>Bienvenido, @Sesion.UsuarioActual!.nombre</p>
+
+    @if (usuarios.Count == 0)
+    {
+        <p>No hay usuarios registrados.</p>
+    }
 
     <DialogoConfirmacion @ref="dialogo" OnConfirmado="EliminarConfirmado" />
 
@@ -52,12 +57,11 @@ else
         </tbody>
     </table>
 }
-</AuthorizeView>
 
 @code {
     private List<Usuario> usuarios = new();
     private Usuario? usuarioSeleccionado = null;
-    private DialogoConfirmacion dialogo = null!;
+    private DialogoConfirmacion? dialogo = null!;
 
     protected override void OnInitialized()
     {
@@ -77,8 +81,7 @@ else
     private void ConfirmarEliminacion(Usuario usuario)
     {
         usuarioSeleccionado = usuario;
-        dialogo.Mensaje = $"¿Desea eliminar al usuario {usuario.nombre} {usuario.apellido}?";
-        dialogo.Mostrar();
+        dialogo?.Mostrar($"¿Desea eliminar al usuario {usuario.nombre} {usuario.apellido}?");
     }
 
     private void EliminarConfirmado()
@@ -88,7 +91,7 @@ else
 
         try
         {
-            UsuarioBaja.Ejecutar(usuarioSeleccionado.id, Sesion.UsuarioActual.id);
+            UsuarioBaja.Ejecutar(usuarioSeleccionado.id, Sesion.UsuarioActual!.id);
             RefrescarListado();
         }
         catch (Exception ex)

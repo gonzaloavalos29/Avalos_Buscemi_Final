@@ -15,10 +15,11 @@
     [Parameter]
     public string Mensaje {get;set;} = "";
 
-    public void Mostrar()
+    public void Mostrar(string mensaje)
     {
-        visible=true;
-        StateHasChanged();
+        Mensaje = mensaje;
+        visible = true;
+        StateHasChanged(); 
     }
     void Cerrar()
     {
