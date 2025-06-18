@@ -42,8 +42,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xFcnJvci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/chach/Desktop/UNLP/2do/.net/Avalos_Buscemi_Final/CentroEventos/CentroEventos.UI/Components/Pages/ListadoEventos.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xMaXN0YWRvRXZlbnRvcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/chach/Desktop/UNLP/2do/.net/Avalos_Buscemi_Final/CentroEventos/CentroEventos.UI/Components/Pages/ListadoPersonas.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xMaXN0YWRvUGVyc29uYXMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/chach/Desktop/UNLP/2do/.net/Avalos_Buscemi_Final/CentroEventos/CentroEventos.UI/Components/Pages/ListadoReservas.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xMaXN0YWRvUmVzZXJ2YXMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/chach/Desktop/UNLP/2do/.net/Avalos_Buscemi_Final/CentroEventos/CentroEventos.UI/Components/Pages/ListadoUsuarios.razor]

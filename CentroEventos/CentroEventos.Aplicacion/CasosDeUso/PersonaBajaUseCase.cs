@@ -15,7 +15,7 @@ public class PersonaBajaUseCase
     }
 
     public void Ejecutar(int Id, Guid idUsuario){
-        if (!_servicioAutorizacion.PoseeElPermiso(idUsuario, Permiso.UsuarioBaja))
+        if (!_servicioAutorizacion.PoseeElPermiso(idUsuario, Permiso.PersonaBaja))
             throw new UnauthorizedAccessException("El usuario no tiene permiso eliminar una persona");
         var PersonaEliminar =_repositorioPersona.ObtenerPorId(Id)?? throw new EntidadNotFoundException("Persona no encontrada");
         if(_repositorioPersona.EsResponsable(Id)|| _repositorioPersona.TieneReservas(Id))

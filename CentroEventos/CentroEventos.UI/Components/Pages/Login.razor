@@ -1,4 +1,4 @@
-@page "/login"
+@page "/"
 @rendermode InteractiveServer
 
 @inject IniciarSesion LoginUseCase
@@ -32,7 +32,7 @@
             var usuario = LoginUseCase.Ejecutar(email, contrasena, validador);
             Sesion.IniciarSesion(usuario);
             await Task.Delay(100);
-            Nav.NavigateTo("/");
+            Nav.NavigateTo("/listadoUsuarios");
         }
         catch (Exception ex)
         {

@@ -14,8 +14,8 @@ public class PersonaAltaUseCase
         _servicioAutorizacion = servicioAutorizacion;
     }
 
-    public void Ejecutar(Persona persona, Guid idUsuario,ValidadorPersona validador){
-        if (!_servicioAutorizacion.PoseeElPermiso(idUsuario, Permiso.UsuarioAlta))
+    public void Ejecutar(Persona persona, Guid idUsuario, ValidadorPersona validador){
+        if (!_servicioAutorizacion.PoseeElPermiso(idUsuario, Permiso.PersonaAlta))
             throw new UnauthorizedAccessException("El usuario no tiene permiso para agregar una persona.");
         validador.Validar(persona);
         _repo.Agregar(persona);
