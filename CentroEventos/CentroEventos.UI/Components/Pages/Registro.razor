@@ -47,11 +47,10 @@
         Console.WriteLine("Intentando registrar...");
         try
         {
-            Validador.Validar(nuevo, esNuevo: true);
 
             nuevo.permisos = new List<Permiso>(); 
 
-            CrearUsuario.Ejecutar(nuevo, password, Guid.NewGuid());
+            CrearUsuario.Ejecutar(nuevo, password, Guid.NewGuid(),Validador);
 
             mensaje = "Usuario registrado correctamente.";
             claseMensaje = "alert-success";

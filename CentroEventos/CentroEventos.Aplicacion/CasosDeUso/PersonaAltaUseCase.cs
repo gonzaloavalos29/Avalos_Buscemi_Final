@@ -8,18 +8,16 @@ public class PersonaAltaUseCase
 {
     private readonly IRepositorioPersona _repo;
     private readonly IServicioAutorizacion _servicioAutorizacion;
-    private readonly ValidadorPersona _validador;
-    public PersonaAltaUseCase(IRepositorioPersona repo, IServicioAutorizacion servicioAutorizacion,ValidadorPersona validador)
+    public PersonaAltaUseCase(IRepositorioPersona repo, IServicioAutorizacion servicioAutorizacion)
     {
         _repo = repo;
-        _validador = validador;
         _servicioAutorizacion = servicioAutorizacion;
     }
 
-    public void Ejecutar(Persona persona, Guid idUsuario){
+    public void Ejecutar(Persona persona, Guid idUsuario,ValidadorPersona validador){
         if (!_servicioAutorizacion.PoseeElPermiso(idUsuario, Permiso.UsuarioAlta))
             throw new UnauthorizedAccessException("El usuario no tiene permiso para agregar una persona.");
-        _validador.Validar(persona);
+        validador.Validar(persona);
         _repo.Agregar(persona);
     }
 }

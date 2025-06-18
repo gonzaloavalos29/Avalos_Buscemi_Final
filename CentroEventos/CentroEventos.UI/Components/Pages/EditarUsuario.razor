@@ -62,8 +62,7 @@
 
         try
         {
-            Validador.Validar(usuario!, esNuevo: false);
-            ModificarUsuario.Ejecutar(usuario!, Sesion.UsuarioActual!.id);
+            ModificarUsuario.Ejecutar(usuario!, Sesion.UsuarioActual!.id,Validador);
             exito = true;
         }
         catch (Exception ex)
