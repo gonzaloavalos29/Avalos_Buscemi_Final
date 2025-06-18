@@ -1,0 +1,89 @@
+@page "/editar-usuario/{id:int?}"
+@rendermode InteractiveServer
+
+@inject IRepositorioPersona Repo
+@inject PersonaModificarUseCase PersonaModificarUseCase
+@inject PersonaAltaUseCase PersonaAltaUseCase
+@inject ValidadorPersona Validador
+@inject NavigationManager Nav
+@inject IServicioAutorizacion Autorizacion
+@inject ServicioSesionUsuario Sesion
+
+<h3>Editar Persona</h3>
+
+@if (!string.IsNullOrEmpty(mensaje))
+{
+    <p class="text-danger">@mensaje</p>
+}
+
+@if (_esNuevaPersona) {
+    <h3>Agregando un Nuevo Cliente</h3>
+} else {
+    <h3>Modificando AL Cliente "@persona.Nombre"</h3>
+}
+
+
+@code {
+    Persona persona = new Persona();
+    private string? mensaje;
+    private bool exito = false;
+    [Parameter] public int? Id {get; set;}
+    bool _esNuevaPersona = true;
+    protected override void OnParametersSet() {
+        if (Id != null) {
+            var personaHallada = Repo.ObtenerPorId(Id.Value);
+            if (personaHallada != null) {
+                persona = personaHallada;
+                _esNuevaPersona = false;
+            }
+        }
+    }
+
+    private async Task Modificar() {
+        mensaje=null;
+        exito=false;
+
+        try{
+            if (_esNuevaPersona) {
+                PersonaAltaUseCase.Ejecutar(persona,Sesion.UsuarioActual!.id,Validador);
+                exito = true;
+            } else {
+                PersonaModificarUseCase.Ejecutar(persona,Sesion.UsuarioActual!.id,Validador);
+                exito = true;
+            }
+            persona = new Persona();
+            await Task.Delay(1000);
+            Nav.NavigateTo("listadoPersonas");
+        }
+        catch(Exception ex){
+            mensaje=ex.Message;
+        }
+    }
+}
+@if (persona != null)
+{
+    <div>
+        <label>Nombre:</label>
+        <input class="form-control mb-2" @bind="persona.Nombre" />
+
+        <label>Apellido:</label>
+        <input class="form-control mb-2" @bind="persona.Apellido" />
+
+        <label>Email:</label>
+        <input class="form-control mb-2" @bind="persona.Email" />
+        
+        <label>DNI:</label>
+        <input class="form-control mb-2" @bind="persona.DNI" />
+
+        <label>Telefono:</label>
+        <input class="form-control mb-2" @bind="persona.Telefono" />
+
+        <button class="btn btn-primary" @onclick="Modificar">Guardar Cambios</button>
+    </div>
+}
+
+@if (exito)
+{
+    <p class="text-success">Proceso realizado correctamente. Redirigiendo...</p>
+}
+
