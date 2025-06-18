@@ -18,7 +18,7 @@ public class PersonaModificarUseCase
     }
 
     public void Ejecutar(Persona persona,Guid idUsuario,ValidadorPersona validador){
-        if (!_servicioAutorizacion.PoseeElPermiso(idUsuario, Permiso.UsuarioModificacion))
+        if (!_servicioAutorizacion.PoseeElPermiso(idUsuario, Permiso.PersonaModificar))
             throw new UnauthorizedAccessException("El usuario no tiene permiso para modificar personas.");
         var add = repositorioPersona.ObtenerPorId(persona.Id)?? throw new EntidadNotFoundException("Persona no encontrada");
         validador.Validar(persona);

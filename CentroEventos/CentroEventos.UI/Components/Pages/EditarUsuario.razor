@@ -1,4 +1,4 @@
-@page "/editar-usuario"
+@page "/editar-usuario/{IdUsuario:guid}"
 @rendermode InteractiveServer
 @inject IRepositorioUsuario Repo
 @inject UsuarioModificarUseCase ModificarUsuario
@@ -7,10 +7,6 @@
 @inject ServicioSesionUsuario Sesion
 
 <h3>Editar Usuario</h3>
-
-<label>ID de usuario:</label>
-<input @bind="idABuscar" type="number" />
-<button @onclick="BuscarUsuario">Buscar</button>
 
 @if (mensaje != null)
 {
@@ -31,7 +27,7 @@
         <label>Email:</label>
         <input @bind="usuario.email" />
         <br />
-        <button @onclick="Modificar">Guardar Cambios</button>
+        <button class="btn btn-primary" @onclick="Modificar">Guardar Cambios</button>
     </div>
 }
 
@@ -41,16 +37,23 @@
 }
 
 @code {
-    private Guid idABuscar;
+    [Parameter]
+    public Guid IdUsuario { get; set; }
+
     private Usuario? usuario;
     private string? mensaje;
     private bool exito = false;
 
-    private void BuscarUsuario()
+    protected override void OnInitialized()
+    {
+        BuscarUsuario(IdUsuario);
+    }
+
+    private void BuscarUsuario(Guid id)
     {
         mensaje = null;
         exito = false;
-        usuario = Repo.ObtenerPorId(idABuscar);
+        usuario = Repo.ObtenerPorId(id);
 
         if (usuario == null)
             mensaje = "Usuario no encontrado.";
@@ -63,7 +66,7 @@
 
         try
         {
-            ModificarUsuario.Ejecutar(usuario!, Sesion.UsuarioActual!.id,Validador);
+            ModificarUsuario.Ejecutar(usuario!, Sesion.UsuarioActual!.id, Validador);
             exito = true;
         }
         catch (Exception ex)

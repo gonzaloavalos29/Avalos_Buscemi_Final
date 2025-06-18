@@ -30,6 +30,10 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xBcHAucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Usuario/Documents/GitHub/Avalos_Buscemi_Final/CentroEventos/CentroEventos.UI/Components/Pages/Bienvenida.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xCaWVudmVuaWRhLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Usuario/Documents/GitHub/Avalos_Buscemi_Final/CentroEventos/CentroEventos.UI/Components/Pages/DialogoConfirmacion.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xEaWFsb2dvQ29uZmlybWFjaW9uLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
@@ -42,8 +46,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xFcnJvci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Usuario/Documents/GitHub/Avalos_Buscemi_Final/CentroEventos/CentroEventos.UI/Components/Pages/ListadoEventos.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xMaXN0YWRvRXZlbnRvcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Usuario/Documents/GitHub/Avalos_Buscemi_Final/CentroEventos/CentroEventos.UI/Components/Pages/ListadoPersonas.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xMaXN0YWRvUGVyc29uYXMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Usuario/Documents/GitHub/Avalos_Buscemi_Final/CentroEventos/CentroEventos.UI/Components/Pages/ListadoReservas.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xMaXN0YWRvUmVzZXJ2YXMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Usuario/Documents/GitHub/Avalos_Buscemi_Final/CentroEventos/CentroEventos.UI/Components/Pages/ListadoUsuarios.razor]
