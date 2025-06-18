@@ -1,5 +1,6 @@
 @page "/registro"
 @rendermode InteractiveServer
+
 @inject RegistrarUsuarioUseCase CrearUsuario
 @inject ValidadorUsuario Validador
 @inject NavigationManager Nav
@@ -7,27 +8,26 @@
 
 <h3>Registro de Usuario</h3>
 
-@if (!string.IsNullOrEmpty(mensaje))
+@if (Sesion.EstaLogeado)
 {
-    <div class="alert @claseMensaje">@mensaje</div>
+    <div class="alert alert-warning mt-3">
+        Ya estás logueado como <strong>@Sesion.UsuarioActual!.nombre</strong>.
+        <button class="btn btn-danger btn-sm ms-2" @onclick="CerrarSesion">Cerrar sesión</button>
+    </div>
 }
+else
+{
+    @if (!string.IsNullOrEmpty(mensaje))
+    {
+        <div class="alert @claseMensaje">@mensaje</div>
+    }
 
-<div>
-    <label>Nombre:</label>
-    <input @bind="nuevo.nombre" />
-
-    <label>Apellido:</label>
-    <input @bind="nuevo.apellido" />
-
-    <label>Email:</label>
-    <input @bind="nuevo.email" />
-
-    <label>Contraseña:</label>
-    <input type="password" @bind="password" />
-
+    <input @bind="nuevo.nombre" placeholder="Nombre" class="form-control mb-2" />
+    <input @bind="nuevo.apellido" placeholder="Apellido" class="form-control mb-2" />
+    <input @bind="nuevo.email" placeholder="Email" class="form-control mb-2" />
+    <input type="password" @bind="password" placeholder="Contraseña" class="form-control mb-2" />
     <button class="btn btn-success" @onclick="RegistrarUsuario">Registrar</button>
-    
-</div>
+}
 
 @code {
     private Usuario nuevo = new();
@@ -39,24 +39,28 @@
     {
         mensaje = "";
         claseMensaje = "";
-        Console.WriteLine("Intentando registrar...");
+
         try
         {
-
             nuevo.permisos = new List<Permiso>(); 
-
             CrearUsuario.Ejecutar(nuevo, password,Validador);
 
             mensaje = "Usuario registrado correctamente.";
             claseMensaje = "alert-success";
 
             Sesion.IniciarSesion(nuevo);
-            Nav.NavigateTo("/");
+            Nav.NavigateTo("/", forceLoad: true);
         }
         catch (Exception ex)
         {
             mensaje = ex.Message;
             claseMensaje = "alert-danger";
         }
+    }
+
+    private void CerrarSesion()
+    {
+        Sesion.CerrarSesion();
+        Nav.NavigateTo("/registro", forceLoad: true);
     }
 }

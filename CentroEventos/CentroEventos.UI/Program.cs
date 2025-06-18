@@ -51,7 +51,7 @@ builder.Services.AddScoped<ReservaListarUseCase>();
 builder.Services.AddScoped<ReservaModificarUseCase>();
 builder.Services.AddScoped<UsuarioBajaUseCase>();
 builder.Services.AddScoped<UsuarioModificarUseCase>();
-builder.Services.AddScoped<ServicioSesionUsuario>();
+builder.Services.AddSingleton<ServicioSesionUsuario>();
 
 
 var app = builder.Build();

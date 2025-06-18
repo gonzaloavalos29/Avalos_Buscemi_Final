@@ -3,42 +3,53 @@
 
 @inject IniciarSesion LoginUseCase
 @inject ServicioSesionUsuario Sesion
-@inject ValidadorUsuario validador
+@inject ValidadorUsuario Validador
 @inject NavigationManager Nav
 
 <h3>Iniciar Sesión</h3>
 
-@if (!string.IsNullOrEmpty(mensaje))
+@if (Sesion.EstaLogeado)
 {
-    <div class="alert alert-danger">@mensaje</div>
+    <div class="alert alert-warning mt-3">
+        Ya estás logueado como <strong>@Sesion.UsuarioActual!.nombre</strong>.
+        <button class="btn btn-danger btn-sm ms-2" @onclick="CerrarSesion">Cerrar sesión</button>
+    </div>
 }
+else
+{
+    @if (!string.IsNullOrEmpty(mensaje))
+    {
+        <div class="alert alert-danger">@mensaje</div>
+    }
 
-<input @bind="email" placeholder="Email" class="form-control mb-2" />
-<input type="password" @bind="contrasena" placeholder="Contraseña" class="form-control mb-2" />
-<button class="btn btn-primary" @onclick="Logear">Ingresar</button>
+    <input @bind="email" placeholder="Email" class="form-control mb-2" />
+    <input type="password" @bind="password" placeholder="Contraseña" class="form-control mb-2" />
+    <button @onclick="Logear">Ingresar</button>
+}
 
 @code {
     private string email = "";
-    private string contrasena = "";
+    private string password = "";
     private string mensaje = "";
 
-    private async Task Logear()
+    private void Logear()
     {
         mensaje = "";
         try
         {
-            Console.WriteLine("Intentando loguearse...");
-
-            var usuario = LoginUseCase.Ejecutar(email, contrasena, validador);
+            var usuario = LoginUseCase.Ejecutar(email, password, Validador);
             Sesion.IniciarSesion(usuario);
-            await Task.Delay(100);
-            Nav.NavigateTo("/listadoUsuarios");
+            Nav.NavigateTo("/", forceLoad: true);
         }
         catch (Exception ex)
         {
             mensaje = ex.Message;
-            Console.WriteLine("Error en login: " + mensaje);
-            StateHasChanged(); 
         }
+    }
+
+    private void CerrarSesion()
+    {
+        Sesion.CerrarSesion();
+        Nav.NavigateTo("/", forceLoad: true);
     }
 }

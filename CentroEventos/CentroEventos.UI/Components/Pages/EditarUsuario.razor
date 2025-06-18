@@ -1,39 +1,52 @@
 @page "/editar-usuario/{IdUsuario:guid}"
 @rendermode InteractiveServer
+
 @inject IRepositorioUsuario Repo
 @inject UsuarioModificarUseCase ModificarUsuario
 @inject ValidadorUsuario Validador
+@inject NavigationManager Nav
 @inject IServicioAutorizacion Autorizacion
 @inject ServicioSesionUsuario Sesion
 
 <h3>Editar Usuario</h3>
 
-@if (mensaje != null)
+@if (!string.IsNullOrEmpty(mensaje))
 {
-    <p style="color:red">@mensaje</p>
+    <p class="text-danger">@mensaje</p>
 }
 
 @if (usuario != null)
 {
     <div>
         <label>Nombre:</label>
-        <input @bind="usuario.nombre" />
-        <br />
+        <input class="form-control mb-2" @bind="usuario.nombre" />
 
         <label>Apellido:</label>
-        <input @bind="usuario.apellido" />
-        <br />
+        <input class="form-control mb-2" @bind="usuario.apellido" />
 
         <label>Email:</label>
-        <input @bind="usuario.email" />
-        <br />
+        <input class="form-control mb-2" @bind="usuario.email" />
+
+        <label>Permisos:</label>
+        <div class="mb-3">
+            @foreach (var permiso in TodosLosPermisos)
+            {
+                <div>
+                    <input type="checkbox"
+                           checked="@PermisosSeleccionados.Contains(permiso)"
+                           @onchange="@((ChangeEventArgs e) => TogglePermiso(permiso, (bool)e.Value!))" />
+                    <label>@permiso</label>
+                </div>
+            }
+        </div>
+
         <button class="btn btn-primary" @onclick="Modificar">Guardar Cambios</button>
     </div>
 }
 
 @if (exito)
 {
-    <p style="color:green">Usuario modificado correctamente.</p>
+    <p class="text-success">Usuario modificado correctamente. Redirigiendo...</p>
 }
 
 @code {
@@ -43,6 +56,9 @@
     private Usuario? usuario;
     private string? mensaje;
     private bool exito = false;
+
+    private List<Permiso> TodosLosPermisos = Enum.GetValues<Permiso>().ToList();
+    private List<Permiso> PermisosSeleccionados = new();
 
     protected override void OnInitialized()
     {
@@ -56,22 +72,49 @@
         usuario = Repo.ObtenerPorId(id);
 
         if (usuario == null)
+        {
             mensaje = "Usuario no encontrado.";
+        }
+        else
+        {
+            PermisosSeleccionados = new List<Permiso>(usuario.permisos ?? new());
+        }
     }
 
-    private void Modificar()
+    private async Task Modificar()
     {
         mensaje = null;
         exito = false;
 
         try
         {
-            ModificarUsuario.Ejecutar(usuario!, Sesion.UsuarioActual!.id, Validador);
+            usuario!.permisos = new List<Permiso>(PermisosSeleccionados);
+
+            ModificarUsuario.Ejecutar(usuario, Sesion.UsuarioActual!.id, Validador);
             exito = true;
+
+            if (usuario.id == Sesion.UsuarioActual.id)
+                Sesion.IniciarSesion(usuario);
+
+            await Task.Delay(1000);
+            Nav.NavigateTo("/listadousuarios", forceLoad: true);
         }
         catch (Exception ex)
         {
             mensaje = ex.Message;
+        }
+    }
+
+    private void TogglePermiso(Permiso permiso, bool estaMarcado)
+    {
+        if (estaMarcado)
+        {
+            if (!PermisosSeleccionados.Contains(permiso))
+                PermisosSeleccionados.Add(permiso);
+        }
+        else
+        {
+            PermisosSeleccionados.Remove(permiso);
         }
     }
 }

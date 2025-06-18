@@ -1,4 +1,5 @@
 using CentroEventos.Aplicacion.Entidades;
+using CentroEventos.Aplicacion.Servicios;
 
 namespace CentroEventos.Aplicacion.Interfaces;
 

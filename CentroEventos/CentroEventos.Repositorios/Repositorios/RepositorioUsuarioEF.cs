@@ -1,5 +1,6 @@
 using CentroEventos.Aplicacion.Entidades;
 using CentroEventos.Aplicacion.Interfaces;
+using CentroEventos.Aplicacion.Servicios;
 using CentroEventos.Repositorios.Contexto;
 
 public class RepositorioUsuarioEF : IRepositorioUsuario

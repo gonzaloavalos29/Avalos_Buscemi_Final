@@ -4,6 +4,6 @@ public enum Permiso
 {
     EventoAlta, EventoModificacion, EventoBaja,
     ReservaBaja, ReservaAlta, ReservaModificacion,
-    UsuarioBaja, UsuarioModificacion,
+    UsuarioBaja, UsuarioModificacion, UsuarioPermiso,
     PersonaAlta, PersonaBaja, PersonaModificar
 }
