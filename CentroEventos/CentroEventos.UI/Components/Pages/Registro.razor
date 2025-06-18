@@ -1,5 +1,6 @@
 @page "/registro"
-@inject UsuarioAltaUseCase CrearUsuario
+@rendermode InteractiveServer
+@inject RegistrarUsuarioUseCase CrearUsuario
 @inject ValidadorUsuario Validador
 @inject NavigationManager Nav
 @inject ServicioSesionUsuario Sesion
@@ -25,7 +26,6 @@
     <input type="password" @bind="password" />
 
     <button class="btn btn-success" @onclick="RegistrarUsuario">Registrar</button>
-    <button @onclick="ProbarClick">Probar click</button>
     
 </div>
 
@@ -34,11 +34,6 @@
     private string password = "";
     private string mensaje = "";
     private string claseMensaje = "";
-
-    private void ProbarClick()
-    {
-        Console.WriteLine("¡Click funcionando!");
-    }
 
     private void RegistrarUsuario()
     {
@@ -50,7 +45,7 @@
 
             nuevo.permisos = new List<Permiso>(); 
 
-            CrearUsuario.Ejecutar(nuevo, password, Guid.NewGuid(),Validador);
+            CrearUsuario.Ejecutar(nuevo, password,Validador);
 
             mensaje = "Usuario registrado correctamente.";
             claseMensaje = "alert-success";
@@ -64,4 +59,5 @@
             claseMensaje = "alert-danger";
         }
     }
-}
+}using Microsoft.AspNetCore.Components.RenderTree;
+#line default

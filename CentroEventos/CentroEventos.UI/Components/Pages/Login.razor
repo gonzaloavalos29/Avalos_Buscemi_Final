@@ -1,29 +1,44 @@
 @page "/login"
+@rendermode InteractiveServer
+
 @inject IniciarSesion LoginUseCase
 @inject ServicioSesionUsuario Sesion
 @inject ValidadorUsuario validador
 @inject NavigationManager Nav
 
-<input @bind="email" placeholder="Email" />
-<input type="password" @bind="Contraseña" placeholder="Contraseña" />
-<button @onclick="IniciarSesion">Ingresar</button>
+<h3>Iniciar Sesión</h3>
+
+@if (!string.IsNullOrEmpty(mensaje))
+{
+    <div class="alert alert-danger">@mensaje</div>
+}
+
+<input @bind="email" placeholder="Email" class="form-control mb-2" />
+<input type="password" @bind="contrasena" placeholder="Contraseña" class="form-control mb-2" />
+<button class="btn btn-primary" @onclick="Logear">Ingresar</button>
 
 @code {
     private string email = "";
-    private string Contraseña = "";
+    private string contrasena = "";
     private string mensaje = "";
 
-    private void IniciarSesion()
+    private async Task Logear()
     {
+        mensaje = "";
         try
         {
-            var usuario = LoginUseCase.Ejecutar(email, Contraseña,validador);
+            Console.WriteLine("Intentando loguearse...");
+
+            var usuario = LoginUseCase.Ejecutar(email, contrasena, validador);
             Sesion.IniciarSesion(usuario);
+            await Task.Delay(100);
             Nav.NavigateTo("/");
         }
         catch (Exception ex)
         {
             mensaje = ex.Message;
+            Console.WriteLine("Error en login: " + mensaje);
+            StateHasChanged(); 
         }
     }
 }

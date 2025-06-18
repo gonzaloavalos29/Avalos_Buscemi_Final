@@ -6,6 +6,7 @@ using CentroEventos.Aplicacion.Validadores;
 using Microsoft.EntityFrameworkCore;
 using CentroEventos.UI.Components;
 using CentroEventos.Aplicacion.CasosDeUso;
+using Microsoft.AspNetCore.Components.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,6 +44,7 @@ builder.Services.AddScoped<PersonaAltaUseCase>();
 builder.Services.AddScoped<PersonaBajaUseCase>();
 builder.Services.AddScoped<PersonaListarUseCase>();
 builder.Services.AddScoped<PersonaModificarUseCase>();
+builder.Services.AddScoped<RegistrarUsuarioUseCase>();
 builder.Services.AddScoped<ReservaAltaUseCase>();
 builder.Services.AddScoped<ReservaBajaUseCase>();
 builder.Services.AddScoped<ReservaListarUseCase>();
@@ -51,13 +53,6 @@ builder.Services.AddScoped<UsuarioAltaUseCase>();
 builder.Services.AddScoped<UsuarioBajaUseCase>();
 builder.Services.AddScoped<UsuarioModificarUseCase>();
 builder.Services.AddScoped<ServicioSesionUsuario>();
-
-
-
-
-
-
-
 
 
 var app = builder.Build();
