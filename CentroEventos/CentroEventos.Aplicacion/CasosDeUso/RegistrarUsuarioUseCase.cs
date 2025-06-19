@@ -21,8 +21,10 @@ public class RegistrarUsuarioUseCase
         usuario.hashpassword = ServicioDeHash.HashSHA256(contraseña);
 
         if (_repo.ListarTodos().Count == 0)
-            usuario.permisos = Enum.GetValues<Permiso>().ToList(); 
-
+        {
+            usuario.permisos = Enum.GetValues<Permiso>().ToList();
+            usuario.esAdmin = true;
+        }
         _repo.Agregar(usuario);
     }
 }

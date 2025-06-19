@@ -26,6 +26,9 @@
         <label>Descripción:</label>
         <textarea class="form-control mb-2" @bind="evento.Descripcion" />
 
+        <label>Lugar:</label>
+        <textarea class="form-control mb-2" @bind="evento.Lugar" />
+
         <label>Fecha y Hora de Inicio:</label>
         <input type="datetime-local" class="form-control mb-2"
             @bind="evento.FechaHoraInicio" /> @* "yyyy-MM-ddTHH:mm" *@
@@ -78,6 +81,7 @@
             {
                 Nombre = "",
                 Descripcion = "",
+                Lugar="",
                 FechaHoraInicio = DateTime.Now
                     .AddMinutes(10)
                     .AddSeconds(-DateTime.Now.Second)

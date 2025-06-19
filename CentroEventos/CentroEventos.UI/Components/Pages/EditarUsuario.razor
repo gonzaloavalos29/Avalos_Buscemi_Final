@@ -27,19 +27,21 @@
         <label>Email:</label>
         <input class="form-control mb-2" @bind="usuario.email" />
 
-        <label>Permisos:</label>
-        <div class="mb-3">
-            @foreach (var permiso in TodosLosPermisos)
-            {
-                <div>
-                    <input type="checkbox"
-                           checked="@PermisosSeleccionados.Contains(permiso)"
-                           @onchange="@((ChangeEventArgs e) => TogglePermiso(permiso, (bool)e.Value!))" />
-                    <label>@permiso</label>
-                </div>
-            }
-        </div>
-
+        @if (Sesion.UsuarioActual!.esAdmin && Sesion.UsuarioActual.id != usuario?.id)
+        {
+            <label>Permisos:</label>
+            <div class="mb-3">
+                @foreach (var permiso in TodosLosPermisos)
+                {
+                    <div>
+                        <input type="checkbox"
+                            checked="@PermisosSeleccionados.Contains(permiso)"
+                            @onchange="@((ChangeEventArgs e) => TogglePermiso(permiso, (bool)e.Value!))" />
+                        <label>@permiso</label>
+                    </div>
+                }
+            </div>
+        }
         <button class="btn btn-primary" @onclick="Modificar">Guardar Cambios</button>
     </div>
 }
@@ -62,6 +64,13 @@
 
     protected override void OnInitialized()
     {
+        if (Sesion.UsuarioActual!.id != IdUsuario && !Autorizacion.PoseeElPermiso(Sesion.UsuarioActual.id, Permiso.UsuarioModificacion))
+        {
+            mensaje = "No tenés permiso para editar a otros usuarios.";
+            usuario = null;
+            return;
+        }
+
         BuscarUsuario(IdUsuario);
     }
 

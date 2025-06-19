@@ -26,6 +26,7 @@ else
                 <th>ID</th>
                 <th>Nombre</th>
                 <th>Descripción</th>
+                <th>Lugar</th>
                 <th>Fecha y Hora</th>
                 <th>Cupo Maximo</th>
                 <th>Responsable</th>
@@ -39,6 +40,7 @@ else
                     <td>@evento.Id</td>
                     <td>@evento.Nombre</td>
                     <td>@evento.Descripcion</td>
+                    <td>@evento.Lugar</td>
                     <td>@evento.FechaHoraInicio.ToString("g")</td>
                     <td>@evento.CupoMaximo</td>
                     <td>@(responsable?.Nombre ?? "¿?") @(responsable?.Apellido)</td>

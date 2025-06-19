@@ -9,5 +9,5 @@ public class Usuario
     public string email { get; set; } = null!;
     public string hashpassword { get; set; } = null!;
     public List<Permiso> permisos { get; set; } = new();
-    
+    public bool esAdmin { get; set; } = false; // este campo lo agregamos para q solo pueda editar permisos el admin
 }

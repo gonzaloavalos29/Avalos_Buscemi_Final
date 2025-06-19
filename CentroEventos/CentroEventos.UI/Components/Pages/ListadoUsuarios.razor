@@ -57,10 +57,14 @@ else
         </tbody>
     </table>
 }
-
+@if (!string.IsNullOrEmpty(mensaje))
+{
+    <p class="text-danger">@mensaje</p>
+}
 @code {
     private List<Usuario> usuarios = new();
     private Usuario? usuarioSeleccionado = null;
+    private string? mensaje;
     private DialogoConfirmacion? dialogo = null!;
 
     protected override void OnInitialized()
@@ -78,11 +82,17 @@ else
         Nav.NavigateTo($"/editar-usuario/{usuario.id}");
     }
 
-    private void ConfirmarEliminacion(Usuario usuario)
+private void ConfirmarEliminacion(Usuario usuario)
+{
+    if (usuario.id == Sesion.UsuarioActual!.id)
     {
-        usuarioSeleccionado = usuario;
-        dialogo?.Mostrar($"¿Desea eliminar al usuario {usuario.nombre} {usuario.apellido}?");
+        mensaje = "No puedes eliminarte a ti mismo.";
+        return;
     }
+
+    usuarioSeleccionado = usuario;
+    dialogo?.Mostrar($"¿Desea eliminar al usuario {usuario.nombre} {usuario.apellido}?");
+}
 
     private void EliminarConfirmado()
     {

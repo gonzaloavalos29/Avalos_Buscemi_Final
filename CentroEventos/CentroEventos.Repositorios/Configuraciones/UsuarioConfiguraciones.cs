@@ -13,6 +13,7 @@ public class UsuarioConfiguraciones : IEntityTypeConfiguration<Usuario>
         builder.Property(u => u.hashpassword).IsRequired();
         builder.Property(u=> u.apellido).IsRequired();
         builder.Property(u=>u.nombre).IsRequired();
+        builder.Property(u => u.esAdmin).IsRequired().HasDefaultValue(false);
         builder.Property(u => u.permisos).HasConversion(
             v => JsonSerializer.Serialize(v, (JsonSerializerOptions?)null),
             v => JsonSerializer.Deserialize<List<Permiso>>(v, (JsonSerializerOptions?)null) ?? new List<Permiso>()
