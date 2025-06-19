@@ -17,17 +17,7 @@ public class CentroEventosContext : DbContext
 
     public CentroEventosContext(DbContextOptions<CentroEventosContext> options) : base(options)
     {
-        var connection = (SqliteConnection)Database.GetDbConnection();
-        if (connection.State == System.Data.ConnectionState.Closed)
-        {
-            connection.Open();
-        }
 
-        using (var command = connection.CreateCommand())
-        {
-            command.CommandText = "PRAGMA journal_mode=DELETE;";
-            command.ExecuteNonQuery();
-        }    
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
