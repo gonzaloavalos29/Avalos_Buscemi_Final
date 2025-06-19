@@ -74,7 +74,6 @@
         }
         else
         {
-            // Alta nueva: inicializamos con valores válidos por defecto
             evento = new EventoDeportivo
             {
                 Nombre = "",
@@ -87,8 +86,7 @@
                 CupoMaximo = 10,
                 ResponsableId = personas.FirstOrDefault()?.Id ?? 0
             };
-
-            _esNuevo = true;
+        _esNuevo = true;
         }
     }
     private async Task Guardar()

@@ -62,6 +62,12 @@ else
                                 disabled="@(Sesion.UsuarioActual?.id == null || !Autorizacion.PoseeElPermiso(Sesion.UsuarioActual.id, Permiso.EventoBaja))">
                             Eliminar
                         </button>
+                        @if (evento.FechaHoraInicio <= DateTime.Now)
+                        {
+                            <button class="btn btn-info" @onclick="@(() => Nav.NavigateTo($"/asistencia-evento/{evento.Id}"))">
+                                Ver Asistencia
+                            </button>
+                        }
                     </td>
                 </tr>
             }

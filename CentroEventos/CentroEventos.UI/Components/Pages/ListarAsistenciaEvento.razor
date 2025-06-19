@@ -1,0 +1,67 @@
+@page "/asistencia-evento"
+@page "/asistencia-evento/{Id:int}"
+@inject ListarAsistenciaAEventoUseCase ServicioAsistencia
+@inject ServicioSesionUsuario Sesion
+
+<h3>Asistencia confirmada al evento</h3>
+
+@if (!Sesion.EstaLogeado)
+{
+    <p>No estás logueado.</p>
+}
+else if (personas == null)
+{
+    <p>Cargando datos...</p>
+}
+else if (mensajeError != null)
+{
+    <p class="text-danger">@mensajeError</p>
+}
+else if (personas.Count == 0)
+{
+    <p>No hay registros de asistencia para este evento.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Correo</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var persona in personas)
+            {
+                <tr>
+                    <td>@persona.Nombre</td>
+                    <td>@persona.Apellido</td>
+                    <td>@persona.Email</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    [Parameter] public int Id { get; set; }
+    List<Persona> personas = new();
+    string? mensajeError;
+    
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            personas = await Task.Run(() => ServicioAsistencia.Ejecutar(Id));
+        }
+        catch (OperacionInvalidaException ex)
+        {
+            mensajeError = ex.Message;
+        }
+        catch (EntidadNotFoundException ex)
+        {
+            mensajeError = ex.Message;
+        }
+    }
+}

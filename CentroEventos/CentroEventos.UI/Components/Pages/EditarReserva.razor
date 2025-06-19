@@ -46,7 +46,7 @@
 
         <label>Estado de Asistencia:</label>
         <select class="form-control mb-3" @bind="reserva.EstadoAsistencia">
-            @foreach (var estado in Enum.GetValues<EstadoAsistencia>())
+            @foreach (EstadoAsistencia estado in Enum.GetValues(typeof(EstadoAsistencia)))
             {
                 <option value="@estado">@estado</option>
             }
@@ -114,4 +114,5 @@
             mensaje = ex.Message;
         }
     }
+    
 }

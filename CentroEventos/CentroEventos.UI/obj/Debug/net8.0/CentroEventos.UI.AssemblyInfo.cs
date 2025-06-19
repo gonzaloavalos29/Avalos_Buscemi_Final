@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CentroEventos.UI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2367ab967796046a151ee2ff16343ac39d1bf458")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+21b69ffa5c38b31a5cdea5d6b29d656dc92a2325")]
 [assembly: System.Reflection.AssemblyProductAttribute("CentroEventos.UI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CentroEventos.UI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
