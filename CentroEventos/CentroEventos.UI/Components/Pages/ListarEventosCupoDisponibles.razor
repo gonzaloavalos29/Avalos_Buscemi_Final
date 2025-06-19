@@ -1,0 +1,63 @@
+@page "/listaeventoscupo"
+@rendermode InteractiveServer
+@inject EventoDeportivoListarUseCase ListarEventos
+@inject ListarEventosConCupoDisponibleUseCase EventoCupo
+@inject NavigationManager Nav
+@inject ServicioSesionUsuario Sesion
+@inject IServicioAutorizacion Autorizacion
+@inject IRepositorioEventoDeportivo Repo
+
+<h3>Listado de Eventos Deportivos Con Cupo </h3>
+
+@if (!Sesion.EstaLogeado)
+{
+    <p>No estás logueado.</p>
+    <NavLink href="/">Iniciar sesión</NavLink>
+}
+else
+{
+    @if (eventos.Count == 0)
+    {
+        <p>No hay eventos con cupo disponible.</p>
+    }
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Fecha y Hora</th>
+                <th>Cupo</th>
+                <th>Responsable</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var evento in eventos)
+            {
+                <tr>
+                    <td>@evento.Id</td>
+                    <td>@evento.Nombre</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private Guid? idUsuario => Sesion.UsuarioActual?.id;
+    private List<EventoDeportivo> eventos = new();
+    private DialogoConfirmacion? dialogo;
+
+    protected override void OnInitialized()
+    {
+        eventos = Repo.ListarTodos();
+        RefrescarListado();
+    }
+
+    private void RefrescarListado()
+    {
+        eventos = ListarEventos.Ejecutar();
+    }
+
+}

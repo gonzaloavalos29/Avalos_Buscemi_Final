@@ -1,0 +1,120 @@
+@page "/listadoReservas"
+@rendermode InteractiveServer
+
+@inject ReservaListarUseCase ListarReservas
+@inject ReservaBajaUseCase ReservaBaja
+@inject NavigationManager Nav
+@inject ServicioSesionUsuario Sesion
+@inject IServicioAutorizacion Autorizacion
+@inject IRepositorioEventoDeportivo RepoEventos
+@inject IRepositorioPersona RepoPersonas
+
+<h3>Listado de Reservas</h3>
+
+@if (!Sesion.EstaLogeado)
+{
+    <p>No estás logueado.</p>
+    <NavLink href="/">Iniciar sesión</NavLink>
+}
+else
+{
+    <p>Bienvenido, @Sesion.UsuarioActual!.nombre</p>
+
+    @if (reservas.Count == 0)
+    {
+        <p>No hay reservas registradas.</p>
+    }
+
+    <DialogoConfirmacion @ref="dialogo" OnConfirmado="EliminarConfirmado" />
+
+    <button class="btn btn-success mb-3"
+            @onclick="@(() => Nav.NavigateTo("/editar-reserva"))"
+            disabled="@(Sesion.UsuarioActual?.id == null || !Autorizacion.PoseeElPermiso(Sesion.UsuarioActual.id, Permiso.ReservaAlta))">
+        <span class="bi bi-plus-circle"></span> Nueva Reserva
+    </button>    
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Persona</th>
+                <th>Evento</th>
+                <th>Fecha Alta</th>
+                <th>Asistencia</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var reserva in reservas)
+            {
+                var persona = personas.FirstOrDefault(p => p.Id == reserva.PersonaId);
+                var evento = eventos.FirstOrDefault(e => e.Id == reserva.EventoDeportivoId);
+
+                <tr>
+                    <td>@reserva.Id</td>
+                    <td>@(persona?.Nombre ?? "Desconocido") @persona?.Apellido</td>
+                    <td>@(evento?.Nombre ?? "Desconocido")</td>
+                    <td>@reserva.FechaAltaReserva.ToString("g")</td>
+                    <td>@reserva.EstadoAsistencia</td>
+                    <td>
+                        <button class="btn btn-primary" @onclick="@(() => EditarReserva(reserva))"
+                                disabled="@(Sesion.UsuarioActual?.id == null || !Autorizacion.PoseeElPermiso(Sesion.UsuarioActual.id, Permiso.ReservaModificacion))">
+                            Editar
+                        </button>
+                        <button class="btn btn-danger" @onclick="@(() => ConfirmarEliminacion(reserva))"
+                                disabled="@(Sesion.UsuarioActual?.id == null || !Autorizacion.PoseeElPermiso(Sesion.UsuarioActual.id, Permiso.ReservaBaja))">
+                            Eliminar
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Reserva> reservas = new();
+    private List<Persona> personas = new();
+    private List<EventoDeportivo> eventos = new();
+    private Reserva? reservaSeleccionada;
+    private DialogoConfirmacion? dialogo = null!;
+
+    protected override void OnInitialized()
+    {
+        personas = RepoPersonas.Listar();
+        eventos = RepoEventos.ListarTodos();
+        RefrescarListado();
+    }
+
+    private void RefrescarListado()
+    {
+        reservas = ListarReservas.Ejecutar();
+    }
+
+    private void EditarReserva(Reserva reserva)
+    {
+        Nav.NavigateTo($"/editar-reserva/{reserva.Id}");
+    }
+
+    private void ConfirmarEliminacion(Reserva reserva)
+    {
+        reservaSeleccionada = reserva;
+        dialogo?.Mostrar($"¿Desea eliminar la reserva #{reserva.Id}?");
+    }
+
+    private void EliminarConfirmado()
+    {
+        if (reservaSeleccionada == null)
+            return;
+
+        try
+        {
+            ReservaBaja.Ejecutar(reservaSeleccionada.Id, Sesion.UsuarioActual!.id);
+            RefrescarListado();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error al eliminar reserva: {ex.Message}");
+        }
+    }
+}

@@ -1,0 +1,117 @@
+@page "/editar-reserva"
+@page "/editar-reserva/{Id:int?}"
+
+@rendermode InteractiveServer
+
+@inject IRepositorioReserva RepoReservas
+@inject IRepositorioPersona RepoPersonas
+@inject IRepositorioEventoDeportivo RepoEventos
+@inject ReservaModificarUseCase ModificarReserva
+@inject ReservaAltaUseCase AltaReserva
+@inject ValidadorReserva Validador
+@inject NavigationManager Nav
+@inject IServicioAutorizacion Autorizacion
+@inject ServicioSesionUsuario Sesion
+
+<h3>@(_esNuevaReserva ? "Nueva Reserva" : "Editar Reserva")</h3>
+
+@if (!string.IsNullOrEmpty(mensaje))
+{
+    <p class="text-danger">@mensaje</p>
+}
+
+@if (exito)
+{
+    <p class="text-success">Reserva guardada correctamente. Redirigiendo...</p>
+}
+
+@if (reserva != null)
+{
+    <div>
+        <label>Persona:</label>
+        <select class="form-control mb-2" @bind="reserva.PersonaId">
+            @foreach (var p in personas)
+            {
+                <option value="@p.Id">@p.Nombre @p.Apellido</option>
+            }
+        </select>
+
+        <label>Evento Deportivo:</label>
+        <select class="form-control mb-2" @bind="reserva.EventoDeportivoId">
+            @foreach (var e in eventos)
+            {
+                <option value="@e.Id">@e.Nombre</option>
+            }
+        </select>
+
+        <label>Estado de Asistencia:</label>
+        <select class="form-control mb-3" @bind="reserva.EstadoAsistencia">
+            @foreach (var estado in Enum.GetValues<EstadoAsistencia>())
+            {
+                <option value="@estado">@estado</option>
+            }
+        </select>
+
+        <button class="btn btn-primary" @onclick="GuardarCambios">Guardar Cambios</button>
+    </div>
+}
+
+@code {
+    [Parameter] public int? Id { get; set; }
+
+    private Reserva? reserva;
+    private List<Persona> personas = new();
+    private List<EventoDeportivo> eventos = new();
+    private string? mensaje;
+    private bool exito = false;
+    private bool _esNuevaReserva = true;
+
+    protected override void OnInitialized()
+    {
+        personas = RepoPersonas.Listar();
+        eventos = RepoEventos.ListarTodos();
+
+        if (Id != null)
+        {
+            reserva = RepoReservas.ObtenerPorId(Id.Value);
+            if (reserva != null)
+                _esNuevaReserva = false;
+        }
+
+        if (reserva == null)
+        {
+            reserva = new Reserva
+            {
+                PersonaId = personas.FirstOrDefault()?.Id ?? 0,
+                EventoDeportivoId = eventos.FirstOrDefault()?.Id ?? 0,
+                EstadoAsistencia = EstadoAsistencia.Pendiente
+            };
+        }
+    }
+
+    private async Task GuardarCambios()
+    {
+        mensaje = null;
+        exito = false;
+
+        try
+        {
+            if (_esNuevaReserva)
+            {
+                AltaReserva.Ejecutar(reserva!, Sesion.UsuarioActual!.id, Validador);
+            }
+            else
+            {
+                ModificarReserva.Ejecutar(reserva!, Sesion.UsuarioActual!.id);
+            }
+
+            exito = true;
+            await Task.Delay(1000);
+            Nav.NavigateTo("/listadoreservas", forceLoad: true);
+        }
+        catch (Exception ex)
+        {
+            mensaje = ex.Message;
+        }
+    }
+}

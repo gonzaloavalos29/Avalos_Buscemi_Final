@@ -12,5 +12,6 @@ namespace CentroEventos.Repositorios.Contexto
 
             return new CentroEventosContext(optionsBuilder.Options);
         }
+        
     }
 }

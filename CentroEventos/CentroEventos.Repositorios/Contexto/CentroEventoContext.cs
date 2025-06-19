@@ -5,6 +5,7 @@ namespace CentroEventos.Repositorios.Contexto;
 
 public class CentroEventosContext : DbContext
 {
+    
     public CentroEventosContext() : base()
     {
     }
@@ -18,5 +19,5 @@ public class CentroEventosContext : DbContext
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(CentroEventosContext).Assembly);
     }
-
+    
 }

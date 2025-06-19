@@ -38,6 +38,7 @@ namespace CentroEventos.Repositorios.Repositorios
         }
 
 
+
         public EventoDeportivo? ObtenerPorId(int id)
         {
             return _context.Eventos.AsNoTracking().FirstOrDefault(e => e.Id == id);

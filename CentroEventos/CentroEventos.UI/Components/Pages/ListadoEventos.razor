@@ -1,0 +1,116 @@
+@page "/listadoeventos"
+@rendermode InteractiveServer
+
+@inject EventoDeportivoListarUseCase ListarEventos
+@inject EventoDeportivoBajaUseCase EventoBaja
+@inject NavigationManager Nav
+@inject ServicioSesionUsuario Sesion
+@inject IServicioAutorizacion Autorizacion
+@inject IRepositorioPersona RepoPersonas
+
+<h3>Listado de Eventos Deportivos</h3>
+
+@if (!Sesion.EstaLogeado)
+{
+    <p>No estás logueado.</p>
+    <NavLink href="/">Iniciar sesión</NavLink>
+}
+else
+{
+    @if (eventos.Count == 0)
+    {
+        <p>No hay eventos registrados.</p>
+    }
+
+    <DialogoConfirmacion @ref="dialogo" OnConfirmado="EliminarConfirmado" />
+
+    <button class="btn btn-success mb-3"
+            @onclick="@(() => Nav.NavigateTo("/editar-evento"))"
+            disabled="@(Sesion.UsuarioActual?.id == null || !Autorizacion.PoseeElPermiso(Sesion.UsuarioActual.id, Permiso.EventoAlta))">
+        <span class="bi bi-plus-circle"></span> Nuevo Evento
+    </button>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Fecha y Hora</th>
+                <th>Cupo</th>
+                <th>Responsable</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var evento in eventos)
+            {
+                var responsable = personas.FirstOrDefault(p => p.Id == evento.ResponsableId);
+                <tr>
+                    <td>@evento.Id</td>
+                    <td>@evento.Nombre</td>
+                    <td>@evento.Descripcion</td>
+                    <td>@evento.FechaHoraInicio.ToString("g")</td>
+                    <td>@evento.CupoMaximo</td>
+                    <td>@(responsable?.Nombre ?? "¿?") @(responsable?.Apellido)</td>
+                    <td>
+                        <button class="btn btn-primary" @onclick="@(() => EditarEvento(evento))"
+                                disabled="@(Sesion.UsuarioActual?.id == null || !Autorizacion.PoseeElPermiso(Sesion.UsuarioActual.id, Permiso.EventoModificacion))">
+                            Editar
+                        </button>
+                        <button class="btn btn-danger" @onclick="@(() => ConfirmarEliminacion(evento))"
+                                disabled="@(Sesion.UsuarioActual?.id == null || !Autorizacion.PoseeElPermiso(Sesion.UsuarioActual.id, Permiso.EventoBaja))">
+                            Eliminar
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private Guid? idUsuario => Sesion.UsuarioActual?.id;
+
+    private List<EventoDeportivo> eventos = new();
+    private List<Persona> personas = new();
+    private EventoDeportivo? seleccionado;
+    private DialogoConfirmacion? dialogo;
+
+    protected override void OnInitialized()
+    {
+        personas = RepoPersonas.Listar();
+        RefrescarListado();
+    }
+
+    private void RefrescarListado()
+    {
+        eventos = ListarEventos.Ejecutar();
+    }
+
+    private void EditarEvento(EventoDeportivo evento)
+    {
+        Nav.NavigateTo($"/editar-evento/{evento.Id}");
+    }
+
+    private void ConfirmarEliminacion(EventoDeportivo evento)
+    {
+        seleccionado = evento;
+        dialogo?.Mostrar($"¿Seguro que deseas eliminar el evento '{evento.Nombre}'?");
+    }
+
+    private void EliminarConfirmado()
+    {
+        if (seleccionado == null) return;
+
+        try
+        {
+            EventoBaja.Ejecutar(seleccionado.Id, Sesion.UsuarioActual!.id);
+            RefrescarListado();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error al eliminar evento: {ex.Message}");
+        }
+    }
+}

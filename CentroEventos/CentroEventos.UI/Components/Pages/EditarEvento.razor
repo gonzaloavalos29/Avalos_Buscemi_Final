@@ -1,0 +1,115 @@
+@page "/editar-evento"
+@page "/editar-evento/{Id:int?}"
+@rendermode InteractiveServer
+
+@inject IRepositorioEventoDeportivo RepoEventos
+@inject EventoDeportivoAltaUseCase EventoAlta
+@inject EventoDeportivoModificarUseCase EventoMod
+@inject ValidadorEventoDeportivo Validador
+@inject IRepositorioPersona RepoPersonas
+@inject NavigationManager Nav
+@inject ServicioSesionUsuario Sesion
+
+<h3>@(_esNuevo ? "Nuevo Evento" : $"Editando: {evento.Nombre}")</h3>
+
+@if (!string.IsNullOrEmpty(mensaje))
+{
+    <p class="text-danger">@mensaje</p>
+}
+
+@if (evento != null)
+{
+    <div>
+        <label>Nombre:</label>
+        <input class="form-control mb-2" @bind="evento.Nombre" />
+
+        <label>Descripción:</label>
+        <textarea class="form-control mb-2" @bind="evento.Descripcion" />
+
+        <label>Fecha y Hora de Inicio:</label>
+        <input type="datetime-local" class="form-control mb-2"
+            @bind="evento.FechaHoraInicio" /> @* "yyyy-MM-ddTHH:mm" *@
+        <label>Duración (en horas):</label>
+        <input type="number" step="0.5" class="form-control mb-2" @bind="evento.DuracionHoras" />
+
+        <label>Cupo Máximo:</label>
+        <input type="number" class="form-control mb-2" @bind="evento.CupoMaximo" />
+
+        <label>Responsable:</label>
+        <select class="form-control mb-3" @bind="evento.ResponsableId">
+            @foreach (var persona in personas)
+            {
+                <option value="@persona.Id">@persona.Nombre @persona.Apellido</option>
+            }
+        </select>
+
+        <button class="btn btn-primary" @onclick="Guardar">Guardar</button>
+    </div>
+}
+
+@if (exito)
+{
+    <p class="text-success">Guardado exitoso. Redirigiendo...</p>
+}
+
+@code {
+    [Parameter] public int? Id { get; set; }
+    EventoDeportivo evento = new();
+    bool _esNuevo = true;
+    bool exito = false;
+    string? mensaje;
+    List<Persona> personas = new();
+    protected override void OnInitialized()
+    {
+        personas = RepoPersonas.Listar();
+
+        if (Id != null)
+        {
+            var ev = RepoEventos.ObtenerPorId(Id.Value);
+            if (ev != null)
+            {
+                evento = ev;
+                _esNuevo = false;
+            }
+        }
+        else
+        {
+            // Alta nueva: inicializamos con valores válidos por defecto
+            evento = new EventoDeportivo
+            {
+                Nombre = "",
+                Descripcion = "",
+                FechaHoraInicio = DateTime.Now
+                    .AddMinutes(10)
+                    .AddSeconds(-DateTime.Now.Second)
+                    .AddMilliseconds(-DateTime.Now.Millisecond),
+                DuracionHoras = 1,
+                CupoMaximo = 10,
+                ResponsableId = personas.FirstOrDefault()?.Id ?? 0
+            };
+
+            _esNuevo = true;
+        }
+    }
+    private async Task Guardar()
+    {
+        mensaje = null;
+        exito = false;
+
+        try
+        {
+            if (_esNuevo)
+                EventoAlta.Ejecutar(evento, Sesion.UsuarioActual!.id, Validador);
+            else
+                EventoMod.Ejecutar(evento, Sesion.UsuarioActual!.id, Validador);
+
+            exito = true;
+            await Task.Delay(1000);
+            Nav.NavigateTo("/listadoeventos", forceLoad: true);
+        }
+        catch (Exception ex)
+        {
+            mensaje = ex.Message;
+        }
+    }
+}
