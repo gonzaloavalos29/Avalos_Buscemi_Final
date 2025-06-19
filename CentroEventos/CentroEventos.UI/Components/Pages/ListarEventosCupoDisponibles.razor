@@ -5,7 +5,7 @@
 @inject NavigationManager Nav
 @inject ServicioSesionUsuario Sesion
 @inject IServicioAutorizacion Autorizacion
-@inject IRepositorioEventoDeportivo Repo
+@inject IRepositorioPersona RepoPersonas
 
 <h3>Listado de Eventos Deportivos Con Cupo </h3>
 
@@ -27,17 +27,21 @@ else
                 <th>Nombre</th>
                 <th>Descripción</th>
                 <th>Fecha y Hora</th>
-                <th>Cupo</th>
+                <th>Cupo Maximo</th>
                 <th>Responsable</th>
-                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var evento in eventos)
             {
+                var responsable = personas.FirstOrDefault(p => p.Id == evento.ResponsableId);
                 <tr>
                     <td>@evento.Id</td>
                     <td>@evento.Nombre</td>
+                    <td>@evento.Descripcion</td>
+                    <td>@evento.FechaHoraInicio.ToString("g")</td>
+                    <td>@evento.CupoMaximo</td>
+                    <td>@(responsable?.Nombre ?? "¿?") @(responsable?.Apellido)</td>
                 </tr>
             }
         </tbody>
@@ -47,14 +51,13 @@ else
 @code {
     private Guid? idUsuario => Sesion.UsuarioActual?.id;
     private List<EventoDeportivo> eventos = new();
-    private DialogoConfirmacion? dialogo;
+    private List<Persona> personas = new();
 
     protected override void OnInitialized()
     {
-        eventos = Repo.ListarTodos();
+        personas = RepoPersonas.Listar();
         RefrescarListado();
     }
-
     private void RefrescarListado()
     {
         eventos = ListarEventos.Ejecutar();
