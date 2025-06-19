@@ -43,12 +43,15 @@ else
                     <td>@usuario.apellido</td>
                     <td>@usuario.email</td>
                     <td>
+                        @{
+                            bool puedeEditarEsteUsuario = (usuario.id == Sesion.UsuarioActual!.id) || Autorizacion.PoseeElPermiso(Sesion.UsuarioActual.id, Permiso.UsuarioModificacion);
+                        }
                         <button class="btn btn-primary" @onclick="@(() => EditarUsuario(usuario))"
-                            disabled="@(!Autorizacion.PoseeElPermiso(Sesion.UsuarioActual.id, Permiso.UsuarioModificacion))">
+                                disabled="@(!puedeEditarEsteUsuario)">
                             Editar
                         </button>
                         <button class="btn btn-danger" @onclick="@(() => ConfirmarEliminacion(usuario))"
-                            disabled="@(!Autorizacion.PoseeElPermiso(Sesion.UsuarioActual.id, Permiso.UsuarioBaja))">
+                            disabled="@(!Autorizacion.PoseeElPermiso(Sesion.UsuarioActual.id, Permiso.UsuarioBaja)||(usuario.esAdmin))">
                             Eliminar
                         </button>
                     </td>

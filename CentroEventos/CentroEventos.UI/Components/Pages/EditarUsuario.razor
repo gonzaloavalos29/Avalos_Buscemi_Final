@@ -26,21 +26,23 @@
 
         <label>Email:</label>
         <input class="form-control mb-2" @bind="usuario.email" />
-
-        @if (Sesion.UsuarioActual!.esAdmin && Sesion.UsuarioActual.id != usuario?.id)
+        @if (Sesion.UsuarioActual!.esAdmin || Autorizacion.PoseeElPermiso(Sesion.UsuarioActual.id, Permiso.UsuarioModificacion))
         {
-            <label>Permisos:</label>
-            <div class="mb-3">
-                @foreach (var permiso in TodosLosPermisos)
-                {
-                    <div>
-                        <input type="checkbox"
-                            checked="@PermisosSeleccionados.Contains(permiso)"
-                            @onchange="@((ChangeEventArgs e) => TogglePermiso(permiso, (bool)e.Value!))" />
-                        <label>@permiso</label>
-                    </div>
-                }
-            </div>
+            @if (Sesion.UsuarioActual.id != usuario?.id || Sesion.UsuarioActual.esAdmin)
+            {
+                <label>Permisos:</label>
+                <div class="mb-3">
+                    @foreach (var permiso in TodosLosPermisos)
+                    {
+                        <div>
+                            <input type="checkbox"
+                                   checked="@PermisosSeleccionados.Contains(permiso)"
+                                   @onchange="@((ChangeEventArgs e) => TogglePermiso(permiso, (bool)e.Value!))" />
+                            <label>@permiso</label>
+                        </div>
+                    }
+                </div>
+            }
         }
         <button class="btn btn-primary" @onclick="Modificar">Guardar Cambios</button>
     </div>
@@ -64,9 +66,13 @@
 
     protected override void OnInitialized()
     {
-        if (Sesion.UsuarioActual!.id != IdUsuario && !Autorizacion.PoseeElPermiso(Sesion.UsuarioActual.id, Permiso.UsuarioModificacion))
+        bool puedeEditar = Sesion.UsuarioActual!.id == IdUsuario ||
+                           Autorizacion.PoseeElPermiso(Sesion.UsuarioActual.id, Permiso.UsuarioModificacion) ||
+                           Sesion.UsuarioActual.esAdmin;
+
+        if (!puedeEditar)
         {
-            mensaje = "No tenés permiso para editar a otros usuarios.";
+            mensaje = "No tenés permiso para editar a este usuario.";
             usuario = null;
             return;
         }
@@ -86,7 +92,14 @@
         }
         else
         {
-            PermisosSeleccionados = new List<Permiso>(usuario.permisos ?? new());
+            if (Sesion.UsuarioActual!.esAdmin || Autorizacion.PoseeElPermiso(Sesion.UsuarioActual.id, Permiso.UsuarioModificacion))
+            {
+                PermisosSeleccionados = new List<Permiso>(usuario.permisos ?? new());
+            }
+            else
+            {
+                PermisosSeleccionados = new();
+            }
         }
     }
 
@@ -97,7 +110,14 @@
 
         try
         {
-            usuario!.permisos = new List<Permiso>(PermisosSeleccionados);
+            if (Sesion.UsuarioActual!.esAdmin || Autorizacion.PoseeElPermiso(Sesion.UsuarioActual.id, Permiso.UsuarioModificacion))
+            {
+                usuario!.permisos = new List<Permiso>(PermisosSeleccionados);
+            }
+            else
+            {
+                usuario!.permisos = new List<Permiso>(usuario.permisos ?? new());
+            }
 
             ModificarUsuario.Ejecutar(usuario, Sesion.UsuarioActual!.id, Validador);
             exito = true;
@@ -118,8 +138,7 @@
     {
         if (estaMarcado)
         {
-            if (!PermisosSeleccionados.Contains(permiso))
-                PermisosSeleccionados.Add(permiso);
+            if (!PermisosSeleccionados.Contains(permiso)) PermisosSeleccionados.Add(permiso);
         }
         else
         {
