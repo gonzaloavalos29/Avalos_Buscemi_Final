@@ -14,7 +14,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddRazorComponents().AddInteractiveServerComponents();
 
-builder.Services.AddDbContext<CentroEventosContext>(options =>options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<CentroEventosContext>(options =>options.UseSqlite($"Data Source=..\\CentroEventos.Repositorios\\centroeventos.db"));
 
 builder.Services.AddScoped<IRepositorioUsuario, RepositorioUsuarioEF>();
 builder.Services.AddScoped<IRepositorioEventoDeportivo, RepositorioEventoEF>();

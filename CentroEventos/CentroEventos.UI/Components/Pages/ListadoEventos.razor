@@ -65,7 +65,7 @@ else
                             Eliminar
                         </button>
                         @if (evento.FechaHoraInicio <= DateTime.Now) // esto lo ponemos asi porq son los q asistieron(el boton aparece una vez finalizado el evento)
-                                                                    //si se quiere probar  podemos editar reservas como presente y se puede poner la direccion /asistencia-evento/(id del evento)
+                                                                    //si se quiere probar  podemos editar reservas como presente y esperar q pase un evento
                         {
                             <button class="btn btn-info" @onclick="@(() => Nav.NavigateTo($"/asistencia-evento/{evento.Id}"))">
                                 Ver Asistencia
@@ -77,7 +77,10 @@ else
         </tbody>
     </table>
 }
-
+@if (!string.IsNullOrEmpty(mensaje))
+{
+    <p class="text-danger">@mensaje</p>
+}
 @code {
     private Guid? idUsuario => Sesion.UsuarioActual?.id;
 
@@ -85,6 +88,7 @@ else
     private List<Persona> personas = new();
     private EventoDeportivo? seleccionado;
     private DialogoConfirmacion? dialogo;
+    private string? mensaje;
 
     protected override void OnInitialized()
     {
@@ -119,7 +123,7 @@ else
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error al eliminar evento: {ex.Message}");
+            mensaje=ex.Message;
         }
     }
 }

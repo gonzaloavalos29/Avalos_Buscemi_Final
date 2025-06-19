@@ -26,7 +26,7 @@
 
         <label>Email:</label>
         <input class="form-control mb-2" @bind="usuario.email" />
-        @if (Sesion.UsuarioActual!.esAdmin || Autorizacion.PoseeElPermiso(Sesion.UsuarioActual.id, Permiso.UsuarioModificacion))
+        @if (Sesion.UsuarioActual!.esAdmin )
         {
             @if (Sesion.UsuarioActual.id != usuario?.id || Sesion.UsuarioActual.esAdmin)
             {
@@ -66,7 +66,7 @@
 
     protected override void OnInitialized()
     {
-        bool puedeEditar = Sesion.UsuarioActual!.id == IdUsuario ||Autorizacion.PoseeElPermiso(Sesion.UsuarioActual.id, Permiso.UsuarioModificacion);
+        bool puedeEditar = Sesion.UsuarioActual!.id == IdUsuario ||Autorizacion.PoseeElPermiso(Sesion.UsuarioActual!.id, Permiso.UsuarioModificacion);
         if (!puedeEditar)
         {
             mensaje = "No tenés permiso para editar a este usuario.";
@@ -99,27 +99,38 @@
             }
         }
     }
-
     private async Task Modificar()
     {
         mensaje = null;
         exito = false;
 
+        var esEdicionPropia = usuario!.id == Sesion.UsuarioActual!.id;
+        var permisosOriginales = usuario.permisos?.ToList() ?? new List<Permiso>();
+
         try
         {
-            if (Sesion.UsuarioActual!.esAdmin || Autorizacion.PoseeElPermiso(Sesion.UsuarioActual.id, Permiso.UsuarioModificacion))
+            if (esEdicionPropia && !Autorizacion.PoseeElPermiso(usuario.id, Permiso.UsuarioModificacion))
             {
-                usuario!.permisos = new List<Permiso>(PermisosSeleccionados);
+                usuario.permisos = permisosOriginales.Append(Permiso.UsuarioModificacion).Distinct().ToList();
+            }
+            else if (Sesion.UsuarioActual!.esAdmin)
+            {
+                usuario.permisos = new List<Permiso>(PermisosSeleccionados);
             }
             else
             {
-                usuario!.permisos = new List<Permiso>(usuario.permisos ?? new());
+                var original = Repo.ObtenerPorId(usuario.id);
+                usuario.permisos = original?.permisos ?? new();
             }
 
-            ModificarUsuario.Ejecutar(usuario, Sesion.UsuarioActual!.id, Validador);
+            ModificarUsuario.Ejecutar(usuario, Sesion.UsuarioActual.id, Validador);
             exito = true;
+            if (esEdicionPropia && !Sesion.UsuarioActual!.esAdmin)
+            {
+                usuario.permisos = permisosOriginales;
+            }
 
-            if (usuario.id == Sesion.UsuarioActual.id)
+            if (esEdicionPropia)
                 Sesion.IniciarSesion(usuario);
 
             await Task.Delay(1000);
@@ -127,10 +138,11 @@
         }
         catch (Exception ex)
         {
+            usuario!.permisos = permisosOriginales;
             mensaje = ex.Message;
         }
-    }
 
+    }
     private void TogglePermiso(Permiso permiso, bool estaMarcado)
     {
         if (estaMarcado)
@@ -143,3 +155,4 @@
         }
     }
 }
+

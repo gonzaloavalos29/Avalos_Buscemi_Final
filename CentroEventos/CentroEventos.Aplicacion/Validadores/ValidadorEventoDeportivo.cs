@@ -20,8 +20,8 @@ public class ValidadorEventoDeportivo {
             throw new ValidacionException("Cupo Maximo debe ser mayor a 0");
         if (eventoDeportivo.DuracionHoras < 0)
             throw new ValidacionException("El evento debe durar mas de 0 hs");
-        /* if (eventoDeportivo.FechaHoraInicio < DateTime.Now)
-            throw new ValidacionException("La Fecha del evento debe ser posterior a la actual"); */
+        if (eventoDeportivo.FechaHoraInicio < DateTime.Now)
+            throw new ValidacionException("La Fecha del evento debe ser posterior a la actual");
         if (string.IsNullOrWhiteSpace(eventoDeportivo.Nombre))
             throw new ValidacionException("El evento debe tener un nombre");
         if (string.IsNullOrWhiteSpace(eventoDeportivo.Descripcion))
