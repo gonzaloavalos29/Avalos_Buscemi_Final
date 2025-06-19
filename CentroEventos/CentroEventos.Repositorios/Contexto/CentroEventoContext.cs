@@ -17,7 +17,6 @@ public class CentroEventosContext : DbContext
 
     public CentroEventosContext(DbContextOptions<CentroEventosContext> options) : base(options)
     {
-
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

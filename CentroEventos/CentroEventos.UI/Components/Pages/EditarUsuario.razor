@@ -66,10 +66,7 @@
 
     protected override void OnInitialized()
     {
-        bool puedeEditar = Sesion.UsuarioActual!.id == IdUsuario ||
-                           Autorizacion.PoseeElPermiso(Sesion.UsuarioActual.id, Permiso.UsuarioModificacion) ||
-                           Sesion.UsuarioActual.esAdmin;
-
+        bool puedeEditar = Sesion.UsuarioActual!.id == IdUsuario ||Autorizacion.PoseeElPermiso(Sesion.UsuarioActual.id, Permiso.UsuarioModificacion);
         if (!puedeEditar)
         {
             mensaje = "No tenés permiso para editar a este usuario.";
